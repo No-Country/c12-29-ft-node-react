@@ -1,5 +1,5 @@
 import { Schema,model,Document } from 'mongoose'
-
+import {ISubscription} from './Subscription'
 export interface ILawyer extends Document {
 	firstname: string
 	lastname: string
@@ -11,7 +11,7 @@ export interface ILawyer extends Document {
 	hashedPassword: string
 	isActive: boolean
 	isAuthorized: boolean
-	subscription: string
+	subscription: ISubscription
 	specialities: [string]
 }
 
@@ -51,8 +51,15 @@ const LawyerSchema = new Schema({
 		default: false
 	},
 	subscription: {
-		type: String,
-		default: "free"
+		type: Schema.Types.Mixed,
+		default: {
+			name: 'free',
+			price: 0,
+			meets: 3,
+			jurisdictions: 1,
+			specialities: 2,
+			visibility: 10
+		}
 	},
 	specialities: [{
 		type: String,
