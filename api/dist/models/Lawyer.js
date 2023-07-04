@@ -26,6 +26,10 @@ const LawyerSchema = new mongoose_1.Schema({
     },
     isActive: {
         type: Boolean,
+        default: true
+    },
+    isAuthorized: {
+        type: Boolean,
         default: false
     },
     subscription: {

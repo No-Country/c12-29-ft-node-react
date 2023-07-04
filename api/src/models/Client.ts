@@ -1,6 +1,6 @@
 import {Schema, model, Document} from 'mongoose'
 
-export interface ILawyer extends Document{
+export interface IClient extends Document{
 	firstname: string
 	lastname: string
 	image: {
@@ -10,12 +10,9 @@ export interface ILawyer extends Document{
 	email: string
 	hashedPassword: string
 	isActive: boolean
-	isAuthorized: boolean
-	subscription: string
-	specialities: [string]
 }
 
-const LawyerSchema = new Schema({
+const ClientSchema = new Schema({
 	firstname: {
 		type: String,
 		required: true
@@ -41,21 +38,9 @@ const LawyerSchema = new Schema({
 	isActive: {
 		type: Boolean,
 		default: true
-	},
-	isAuthorized: {
-		type: Boolean,
-		default: false
-	},
-	subscription: {
-		type: String,
-		default: "free"
-	},
-	specialities: [{
-		type: String,
-		required: true
-	}]
+	}
 },{
 	timestamps: true,
 	versionKey: false
 })
-export default model<ILawyer>('Lawyer', LawyerSchema)
+export default model<IClient>('Client', ClientSchema)

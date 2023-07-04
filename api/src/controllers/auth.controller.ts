@@ -10,6 +10,7 @@ const { JWT_SECRET } = process.env
 
 export const signup = async (req: Request,res: Response) => {
 	const { password } = req.body
+	const {isClient} = req.query
 	try {
 		//saving new user
 		const hashedPassword = await encryptPassword(password)

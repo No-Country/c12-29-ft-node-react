@@ -21,6 +21,7 @@ dotenv_1.default.config();
 const { JWT_SECRET } = process.env;
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { password } = req.body;
+    const { isClient } = req.query;
     try {
         //saving new user
         const hashedPassword = yield (0, authUtils_1.encryptPassword)(password);
