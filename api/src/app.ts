@@ -1,5 +1,6 @@
 import express, { Application } from 'express'
 import authRouter from './routes/auth'
+import clientRouter from './routes/client'
 import morgan from 'morgan'
 import { verifyToken } from './utils/authUtils'
 
@@ -13,6 +14,7 @@ app.use(morgan('dev'))
 app.use(express.json())
 // routes
 app.use('/api/auth', authRouter)
+app.use('/api/clients', clientRouter)
 
 
 export default app

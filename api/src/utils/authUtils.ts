@@ -21,9 +21,6 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
 		if(!token) throw new Error('Acceso denegado')
 		const payload = jwt.verify(token, JWT_SECRET || 'Secret')
 		
-		console.log(payload);
-		
-		
 		next()
 	} catch (error: any) {
 		return res.status(400).json(error.message)

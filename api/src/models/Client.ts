@@ -36,6 +36,10 @@ const ClientSchema = new Schema({
 		type: String,
 		required: true
 	},
+	meets: {
+		type: Object,
+		default: []
+	},
 	isActive: {
 		type: Boolean,
 		default: true
