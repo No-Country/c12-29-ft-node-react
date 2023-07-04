@@ -28,6 +28,10 @@ const LawyerSchema = new mongoose_1.Schema({
         type: Boolean,
         default: true
     },
+    accountType: {
+        type: String,
+        default: 'Lawyer'
+    },
     isAuthorized: {
         type: Boolean,
         default: false

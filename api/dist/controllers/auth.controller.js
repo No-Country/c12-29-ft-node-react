@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.profile = exports.signin = exports.signup = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const Lawyer_1 = __importDefault(require("../models/Lawyer"));
+const Client_1 = __importDefault(require("../models/Client"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const authUtils_1 = require("../utils/authUtils");
 dotenv_1.default.config();
@@ -25,11 +26,11 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         //saving new user
         const hashedPassword = yield (0, authUtils_1.encryptPassword)(password);
-        const newLawyer = new Lawyer_1.default(Object.assign(Object.assign({}, req.body), { hashedPassword }));
-        yield newLawyer.save();
+        const newUser = isClient ? new Client_1.default(Object.assign(Object.assign({}, req.body), { hashedPassword })) : new Lawyer_1.default(Object.assign(Object.assign({}, req.body), { hashedPassword }));
+        yield newUser.save();
         //token
-        const token = jsonwebtoken_1.default.sign({ _id: newLawyer._id }, JWT_SECRET || 'Secret');
-        return res.header('token', token).status(201).json(newLawyer);
+        const token = jsonwebtoken_1.default.sign({ _id: newUser._id }, JWT_SECRET || 'Secret');
+        return res.header('token', token).status(201).json(newUser);
     }
     catch (error) {
         return res.status(400).json(error);
@@ -38,9 +39,10 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.signup = signup;
 const signin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
+    const { isClient } = req.query;
     try {
         //find user
-        const user = yield Lawyer_1.default.findOne({ email });
+        const user = isClient ? yield Client_1.default.findOne({ email }) : yield Lawyer_1.default.findOne({ email });
         if (!user)
             throw new Error('Usuario o contraseña incorrecta');
         //password validation

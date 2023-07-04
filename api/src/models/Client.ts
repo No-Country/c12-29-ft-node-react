@@ -10,6 +10,7 @@ export interface IClient extends Document{
 	email: string
 	hashedPassword: string
 	isActive: boolean
+	accountType: string
 }
 
 const ClientSchema = new Schema({
@@ -38,6 +39,10 @@ const ClientSchema = new Schema({
 	isActive: {
 		type: Boolean,
 		default: true
+	},
+	accountType: {
+		type: String,
+		default: 'Client'
 	}
 },{
 	timestamps: true,

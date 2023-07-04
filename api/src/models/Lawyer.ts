@@ -1,6 +1,6 @@
-import {Schema, model, Document} from 'mongoose'
+import { Schema,model,Document } from 'mongoose'
 
-export interface ILawyer extends Document{
+export interface ILawyer extends Document {
 	firstname: string
 	lastname: string
 	image: {
@@ -42,6 +42,10 @@ const LawyerSchema = new Schema({
 		type: Boolean,
 		default: true
 	},
+	accountType: {
+		type: String,
+		default: 'Lawyer'
+	},
 	isAuthorized: {
 		type: Boolean,
 		default: false
@@ -58,4 +62,4 @@ const LawyerSchema = new Schema({
 	timestamps: true,
 	versionKey: false
 })
-export default model<ILawyer>('Lawyer', LawyerSchema)
+export default model<ILawyer>('Lawyer',LawyerSchema)
