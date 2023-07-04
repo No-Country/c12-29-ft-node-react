@@ -7,7 +7,7 @@ import Footer from "./Footer"
 
 const Home = () => {
 
-  console.log(Button, 'asdasd');
+
 
   return (
     <div>
