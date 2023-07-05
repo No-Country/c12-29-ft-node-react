@@ -1,10 +1,10 @@
-import {Router} from 'express'
-
+import { Router } from 'express'
+import { getSubscriptions,createSubscription,updateSubscription,deleteSubscription } from '../controllers/subscription.controller'
 const router = Router()
 
-router.get('/')
-router.post('/')
-router.put('/:_id')
-router.delete('/:_id')
+router.get('/',getSubscriptions)
+router.post('/',createSubscription)
+router.put('/:_id',updateSubscription)
+router.delete('/:_id',deleteSubscription)
 
 export default router
