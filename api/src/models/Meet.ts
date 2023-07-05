@@ -5,21 +5,26 @@ export interface IMeet extends Document {
 	client: string
 	lawyer: string
 	date: Date
+	status: string
 }
 
 
 const MeetSchema = new Schema({
-	client: {
+	clientId: {
 		type: Schema.Types.ObjectId,
 		required: true
 	},
-	lawyer: {
+	lawyerId: {
 		type: Schema.Types.ObjectId,
 		required: true
 	},
 	date: {
 		type: Date,
 		required: true
+	},
+	status: {
+		type: String,
+		default: 'Pendiente'
 	}
 },{
 	timestamps:true,
