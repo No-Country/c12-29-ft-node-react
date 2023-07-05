@@ -1,21 +1,17 @@
-import Hero from "./Hero"
-import Contact from "./Contact"
-import AboutServices from "./AboutServices"
-import { Button } from '@mui/material'
-import { NavLink } from "react-router-dom"
-import Footer from "./Footer"
+import Hero from './Hero'
+import Contact from './Contact'
+import AboutServices from './AboutServices'
+import Footer from './Footer'
+import Navbar from '../../components/Navbar'
 
 const Home = () => {
-
-
-
   return (
     <div>
+      <Navbar />
       <Hero />
       <AboutServices />
       <Contact />
       <Footer />
-      <NavLink to='/login'><Button>login</Button></NavLink>
     </div>
   )
 }
