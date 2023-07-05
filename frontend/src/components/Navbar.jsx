@@ -1,9 +1,5 @@
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import { Stack } from '@mui/material'
+import { Stack, Button, Typography, Toolbar, Box, AppBar } from '@mui/material'
+import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -14,11 +10,11 @@ const Navbar = () => {
             Empresa
           </Typography>
           <Stack direction='row' spacing={2}>
-            <Button sx={{ fontSize: 12 }} color='inherit'>Home</Button>
-            <Button sx={{ fontSize: 12 }} color='inherit'>Servicios</Button>
-            <Button sx={{ fontSize: 12 }} color='inherit'>Contacto</Button>
+            <NavLink to='/'><Button sx={{ fontSize: 12 }} color='inherit'>Home</Button></NavLink>
+            <NavLink to='/aboutServices'><Button sx={{ fontSize: 12 }} color='inherit'>Servicios</Button></NavLink>
+            <NavLink to='/contact'><Button sx={{ fontSize: 12 }} color='inherit'>Contacto</Button></NavLink>
           </Stack>
-          <Button sx={{ m: 2 }} color="inherit">Login</Button>
+          <NavLink to='/login'><Button sx={{ m: 2 }} color="inherit">Login</Button></NavLink>
         </Toolbar>
       </AppBar>
     </Box>
