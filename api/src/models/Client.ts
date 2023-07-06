@@ -1,6 +1,5 @@
-import {Schema, model, Document} from 'mongoose'
-
-export interface IClient extends Document{
+import mongoose , { Schema,model,Document, Types } from 'mongoose'
+export interface IClient extends Document {
 	firstname: string
 	lastname: string
 	image: {
@@ -9,6 +8,7 @@ export interface IClient extends Document{
 	}
 	email: string
 	hashedPassword: string
+	meets: [Types.ObjectId]
 	isActive: boolean
 	accountType: string
 }
@@ -36,10 +36,10 @@ const ClientSchema = new Schema({
 		type: String,
 		required: true
 	},
-	meets: {
-		type: Object,
-		default: []
-	},
+	meets: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Meet'
+	}],
 	isActive: {
 		type: Boolean,
 		default: true
@@ -52,4 +52,4 @@ const ClientSchema = new Schema({
 	timestamps: true,
 	versionKey: false
 })
-export default model<IClient>('Client', ClientSchema)
+export default model<IClient>('Client',ClientSchema)
