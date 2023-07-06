@@ -16,6 +16,7 @@ const Home = () => {
       <Contact />
       <Footer />
       <NavLink to='/login'><Button>login</Button></NavLink>
+      <NavLink to='/signup'><Button>Sign Up</Button></NavLink>
     </div>
   )
 }
