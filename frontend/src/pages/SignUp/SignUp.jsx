@@ -31,52 +31,54 @@ const SignUp = () => {
     
 
     const handleChange = (e) => {
-        e.target.name === 'servicio' ? setDisabled(true) : null;
+        const {value, name} = e.target
+        name === 'servicio' ? setDisabled({...disabled, select: true}) : null;
         setInput({
             ...input,
-            [e.target.name]: e.target.value
+            [name]: value
         });
 
-        if(e.target.value.length <= 3){
+        if(value < 4){
             setError({
                 ...error,
-                [e.target.name]:`${e.target.name} tiene que tener mas de 3 caracteres`
+                [name]:`${name} tiene que tener mas de 3 caracteres`
             })
         } else {
-            if(e.target.name === 'email' ){
-                email.test(e.target.value) ? setError({...error, email:''}) : setError({...error, email:'Debes proporcionar un email valido'});
-            }else if(e.target.name === 'contraseña' || e.target.name === 'confirmarContraseña'){
-                contraseña.test(e.target.value) ? setError({...error, contraseña:''}) : setError({...error, contraseña:'Debes proporcionar una contraseña valido'}) 
+            if(name === 'email' ){
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                emailRegex.test(value) ? setError({...error, email:''}) : setError({...error, email:'Debes proporcionar un email valido'});
             }
-             else if(e.target.name === 'nombre'){
-                nombre.test(e.target.value) ? setError({...error, nombre:''}) : setError({...error, nombre:'Debes proporcionar un nombre valido'}) 
-             }
-             else if(e.target.name === 'apellido'){
-                nombre.test(e.target.value) ? setError({...error, apellido:''}) : setError({...error, apellido:'Debes proporcionar un apellido valido'}) 
-             }
-             else if(e.target.name === 'confirmarContraseña'){
-                contraseña.test(e.target.value) ? setError({...error, confirmarContraseña:''}) : setError({...error, confirmarContraseña:'Debes proporcionar un contraseña valido'}) 
-             }
-            else {
+            else if(name === 'contraseña'){
+                const nameRegex = /^[A-Za-z]+$/;
+                nameRegex.test(value) ? setError({...error, contraseña:''}) : setError({...error, contraseña:'Debes proporcionar una contraseña valida'}) 
+            }
+            else if(name === 'nombre'){
+                const nameRegex = /^[A-Za-z]+$/;
+                nameRegex.test(value) ? setError({...error, nombre:''}) : setError({...error, nombre:'Debes proporcionar un nombre valido'}) 
+            }
+            else if(name === 'confirmarContraseña'){
+                value === input.contraseña ? setError({ ...error, confirmarContraseña: '' }) : setError({ ...error, confirmarContraseña: 'Las contraseñas deben coincidir' });
+            } 
+            else if(name === 'apellido'){
+                nombre.test(value) ? setError({...error, apellido:''}) : setError({...error, apellido:'Debes proporcionar un apellido valido'}) 
+            }
+             else {
                 setError({ 
-                    ...error, 
-                    [e.target.name]: ''
-                })
-            }
-            if(e.target.name === 'confirmarContraseña' || e.target.name === 'contraseña'){
-                e.target.value === input.contraseña ? setError({ ...error, confirmarContraseña: '' }) : setError({ ...error, confirmarContraseña: 'Las contraseñas deben coincidir' });
-            }
+                ...error, 
+                [name]: ''
+            })
+        }
         }
     };
 
     useEffect(() => {
-        const isDisabled = !input.apellido || !input.confirmarContraseña || !input.contraseña || !input.email || !input.
-        disabled.buttonRegister !== isDisabled && setDisabled(isDisabled);
+        const isDisabled = !input.apellido || !input.confirmarContraseña || !input.contraseña || !input.email || error.apellido || error.confirmarContraseña || error.contraseña || error.email || error.nombre 
+        disabled.buttonRegister !== isDisabled && setDisabled({...disabled, buttonRegister: isDisabled});
     },[input, error])
 
     const handleRegister = (e) => {
         e.preventDefault();
-        console.log('hola')
+        input.apellido && input.confirmarContraseña && input.contraseña && input.email && input.matricula && input.nombre && input.servicio && !error.apellido && !error.confirmarContraseña && !error.contraseña && !error.email && !error.matricula && !error.nombre && !error.servicio ? console.log(input) : console.log('faltan datos')
     }
 
   return (
