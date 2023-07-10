@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import { contraseña } from './validacionesSignUp';
+import { contraseña, email, nombre } from './validacionesSignUp';
 
 const SignUp = () => {
     const [input, setInput] = useState({
@@ -29,7 +29,6 @@ const SignUp = () => {
         buttonRegister: true
     });
     
-    const nombre = new RegExp("^[a-zA-Z ]+$");
 
     const handleChange = (e) => {
         e.target.name === 'servicio' ? setDisabled(true) : null;
@@ -38,34 +37,26 @@ const SignUp = () => {
             [e.target.name]: e.target.value
         });
 
-        if(e.target.value.length <= 0){
+        if(e.target.value.length <= 3){
             setError({
                 ...error,
-                [e.target.name]:`Debe ingresar un ${e.target.name} valido`
+                [e.target.name]:`${e.target.name} tiene que tener mas de 3 caracteres`
             })
-        } else if (e.target.value.length > 0){
-            if(e.target.name !== 'contraseña' || e.target.name !== 'confirmarContraseña'){
-                let variable = e.target.name;
-                console.log(variable)
-                nombre.test(e.target.value) ? setError({...error, variable:''}) : setError({...error, variable:`Debes proporcionar un ${variable} valido`}) 
+        } else {
+            if(e.target.name === 'email' ){
+                email.test(e.target.value) ? setError({...error, email:''}) : setError({...error, email:'Debes proporcionar un email valido'});
             }else if(e.target.name === 'contraseña' || e.target.name === 'confirmarContraseña'){
                 contraseña.test(e.target.value) ? setError({...error, contraseña:''}) : setError({...error, contraseña:'Debes proporcionar una contraseña valido'}) 
             }
-            //  else if(e.target.name === 'nombre'){
-            //     regExNombre.test(e.target.value) ? setError({...error, nombre:''}) : setError({...error, nombre:'Debes proporcionar un nombre valido'}) 
-            //  }
-            //  else if(e.target.name === 'apellido'){
-            //     regExName.test(e.target.value) ? setError({...error, apellido:''}) : setError({...error, apellido:'Debes proporcionar un apellido valido'}) 
-            //  }
-            //  else if(e.target.name === 'confirmarContraseña'){
-            //     regExContraseña.test(e.target.value) ? setError({...error, confirmarContraseña:''}) : setError({...error, confirmarContraseña:'Debes proporcionar un contraseña valido'}) 
-            //  }
-             else if(!nombre.test(e.target.value)){
-                setError({
-                    ...error,
-                    [e.target.name]:`El ${e.target.name} no debe tener signos`
-                })
-            }
+             else if(e.target.name === 'nombre'){
+                nombre.test(e.target.value) ? setError({...error, nombre:''}) : setError({...error, nombre:'Debes proporcionar un nombre valido'}) 
+             }
+             else if(e.target.name === 'apellido'){
+                nombre.test(e.target.value) ? setError({...error, apellido:''}) : setError({...error, apellido:'Debes proporcionar un apellido valido'}) 
+             }
+             else if(e.target.name === 'confirmarContraseña'){
+                contraseña.test(e.target.value) ? setError({...error, confirmarContraseña:''}) : setError({...error, confirmarContraseña:'Debes proporcionar un contraseña valido'}) 
+             }
             else {
                 setError({ 
                     ...error, 
