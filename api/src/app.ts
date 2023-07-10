@@ -6,6 +6,7 @@ import subscriptionsRouter from './routes/subscription'
 import meetsRouter from './routes/meet'
 import paymentsRouter from './routes/payment'
 
+import cors from 'cors'
 import morgan from 'morgan'
 import fileUpload from 'express-fileupload'
 import path from 'path'
@@ -17,6 +18,16 @@ app.set('port',3001)
 
 //middlewares
 app.use(morgan('dev'))
+app.use(cors({
+  origin: '*'
+}));
+app.use((req, res, next) => {
+	res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
 app.use(express.json())
 
 const uploadDir = path.join(__dirname, '../upload');
