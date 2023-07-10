@@ -1,29 +1,26 @@
-import { Button, Container, TextField } from "@mui/material"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import Swal from "sweetalert2"
-
+import { Button, Container, TextField } from '@mui/material'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const Login = () => {
-
   const navigate = useNavigate()
 
   const [login, setLogin] = useState({
     email: '',
-    password: '',
+    password: ''
   })
 
   const [errors, setErrors] = useState({
     email: '',
-    password: '',
+    password: ''
   })
 
-  const handleChange = (event) =>{
+  const handleChange = (event) => {
     setLogin({
       ...login,
       [event.target.name]: event.target.value
     })
-    
   }
 
   const handleLogin = (event) => {
@@ -31,12 +28,11 @@ const Login = () => {
     Swal.fire({
       title: 'Login Sucess',
       icon: 'success',
-      denyButtonText: 'ok',
+      denyButtonText: 'ok'
     }).then(() => {
-      navigate('/') 
+      navigate('/')
     })
   }
-
 
   return (
     <Container>
@@ -51,7 +47,7 @@ const Login = () => {
         value={login.password}
         onChange={handleChange}
         type="password" placeholder="password..." />
-        <Button type="submit" color="primary">login</Button>   
+        <Button type="submit" color="primary">login</Button>
       </form>
     </Container>
   )

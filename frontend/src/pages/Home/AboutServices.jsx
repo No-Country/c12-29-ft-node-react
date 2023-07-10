@@ -1,5 +1,3 @@
-
-
 const AboutServices = () => {
   return (
     <div>Services</div>
