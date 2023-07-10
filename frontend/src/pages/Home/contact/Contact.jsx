@@ -43,7 +43,7 @@ const Contact = () => {
     setSendPressed(true)
     e.preventDefault()
     if (emailValid && messageValid) {
-      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
+      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, PUBLIC_KEY)
         .then((result) => {
         }, (error) => {
           console.log(error.text)
@@ -101,7 +101,7 @@ const Contact = () => {
           rows={8} 
           placeholder="message..." 
           type='text' 
-          name="message..." 
+          name="message" 
           className='contactTextarea'
         />
         { !messageValid && sendPressed?
