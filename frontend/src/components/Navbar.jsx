@@ -15,6 +15,7 @@ const Navbar = () => {
             <NavLink to='/contact'><Button sx={{ fontSize: 12 }} color='inherit'>Contacto</Button></NavLink>
           </Stack>
           <NavLink to='/login'><Button sx={{ m: 2 }} color="inherit">Login</Button></NavLink>
+          <NavLink to='/signup'><Button sx={{ m: 2 }} color="inherit">Registrate</Button></NavLink>
         </Toolbar>
       </AppBar>
     </Box>
