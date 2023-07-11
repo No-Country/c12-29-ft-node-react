@@ -26,8 +26,8 @@ const Login = () => {
 
   async function handleLogin(e) {
     e.preventDefault()
-      /* try {
-        const getToken = await fetch('http://localhost:3001/api/auth/signup', {
+      try {
+        const getToken = await fetch('http://localhost:3001/api/auth/signup?IsClient=true', {
           method: 'post',
           headers: {
             "Content-Type": "application/json",
@@ -38,20 +38,20 @@ const Login = () => {
         console.log('response: ', response)
       } catch (error) {
           console.log("ERROR MESSAGE:", error.message)
-      } */
+      }
 
-    fetch('http://localhost:3001/api/auth/signup', {
-      method: 'post',
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        'Access-Control-Allow-Origin': 'http://localhost:5173'
-      },
+  //   fetch('http://localhost:3001/api/auth/signin?IsClient=true', {
+  //     method: 'post',
+  //     mode: "cors",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       /* 'Access-Control-Allow-Origin': 'http://localhost:5173' */
+  //     },
 
-      body: JSON.stringify(user)
-    })
-    .then(response => response.json() )
-    .catch(error => console.log("ERROR MESSAGE:", error.message))
+  //     body: JSON.stringify(user)
+  //   })
+  //   .then(response => response.json() )
+  //   .catch(error => console.log("ERROR MESSAGE:", error.message))
   }
 
   const handleChange = (e) => {

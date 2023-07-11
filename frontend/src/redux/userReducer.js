@@ -5,7 +5,9 @@ const  initialState = {
     email:""
 };
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
     name:"user",
     initialState
 });
+
+export default userSlice
