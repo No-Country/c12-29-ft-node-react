@@ -23,7 +23,7 @@ export const getClients = async (req: Request,res: Response) => {
 
 export const getClientById = async (req: Request,res: Response) => {
 	const { _id } = req.params
-
+	
 	try {
 		//Fetch client
 		const client = await Client.findById(_id)

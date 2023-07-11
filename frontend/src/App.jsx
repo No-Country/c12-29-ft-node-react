@@ -4,6 +4,7 @@ import Login from './pages/login/Login'
 import AboutServices from './pages/Home/AboutServices'
 import Contact from './pages/Home/contact/Contact'
 import './normalize.css'
+import SignUp from './pages/SignUp/SignUp'
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
             <Route path='/login' element={<Login />} />
             <Route path='/aboutServices' element={<AboutServices />} />
             <Route path='/contact' element={<Contact />} />
+            <Route path='/signup' element={<SignUp />} />
         </Routes>
     </>
   )

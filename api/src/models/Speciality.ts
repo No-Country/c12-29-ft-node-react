@@ -12,7 +12,7 @@ const SpecialitySchema = new Schema({
 		unique: true
 	}
 },{
-	timestamps:true,
+	timestamps:false,
 	versionKey: false
 })
 
