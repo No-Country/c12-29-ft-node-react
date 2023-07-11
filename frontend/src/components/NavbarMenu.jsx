@@ -3,6 +3,7 @@ import Button from '@mui/material/Button'
 import { Menu, MenuItem, ListItemIcon } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import Logout from '@mui/icons-material/Logout'
+import PersonIcon from '@mui/icons-material/Person'
 
 export default function NavbarMenu () {
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -22,9 +23,12 @@ export default function NavbarMenu () {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        sx={{ fontSize: 12, textTransform: 'none', color: 'white', backgroundColor: 'gray' }}
+        sx={{ pl: 2, pr: 2, fontSize: 16, textTransform: 'none', color: 'white', backgroundColor: 'gray' }}
       >
         User
+        <ListItemIcon sx={{ justifyContent: 'flex-end' }}>
+          <PersonIcon fontSize='small'/>
+        </ListItemIcon>
       </Button>
       <Menu
         id="basic-menu"

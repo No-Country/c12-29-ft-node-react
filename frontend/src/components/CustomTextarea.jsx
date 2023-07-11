@@ -1,15 +1,15 @@
-import TextareaAutosize from '@mui/base/TextareaAutosize';
-import { styled } from '@mui/system';
+import TextareaAutosize from '@mui/base/TextareaAutosize'
+import { styled } from '@mui/system'
 
-export default function CustomTextarea() {
+export default function CustomTextarea () {
   const blue = {
     100: '#DAECFF',
     200: '#b6daff',
     400: '#3399FF',
     500: '#007FFF',
     600: '#0072E5',
-    900: '#003A75',
-  };
+    900: '#003A75'
+  }
 
   const grey = {
     50: '#f6f8fa',
@@ -21,8 +21,8 @@ export default function CustomTextarea() {
     600: '#57606a',
     700: '#424a53',
     800: '#32383f',
-    900: '#24292f',
-  };
+    900: '#24292f'
+  }
 
   const StyledTextarea = styled(TextareaAutosize)(
     ({ theme }) => `
@@ -53,8 +53,8 @@ export default function CustomTextarea() {
     &:focus-visible {
       outline: 0;
     }
-  `,
-  );
+  `
+  )
 
-  return <StyledTextarea aria-label="minimum height" minRows={3}  placeholder="Deje su mensaje..." />;
+  return <StyledTextarea aria-label="minimum height" minRows={3} placeholder="Deje su mensaje..." />
 }
