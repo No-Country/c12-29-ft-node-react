@@ -9,35 +9,20 @@ import './styles.login.css'
 const Login = () => {
   const navigate = useNavigate()
 
-  const [login, setLogin] = useState({
+  const [user, setUser] = useState({
     email: '',
     password: ''
   })
 
   const [errors, setErrors] = useState({
-    email: '',
-    password: ''
+    email: false,
+    password: false
   })
 
   const [sendPressed, setSendPressed] = useState(false)
 
-  const user = {
-    email: `${login.email}`,
-    password: `${login.password}`
-  }
-
   const PASS_REGEX = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,8}$/
-  const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-  const NAME_REGEX = /^[a-zA-Z, ]{3,18}$/
-
-  /* const ValidateEmail = (e) => {
-    setSendPressed(true)
-    if (e.target.value.match(NAME_REGEX)) {
-			console.log("true!!");
-      setErrors({ ...errors, email: true })
-		} 
-  } */
-  
+  const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ 
 
   async function handleLogin(e) {
     e.preventDefault()
@@ -70,32 +55,43 @@ const Login = () => {
   }
 
   const handleChange = (e) => {
-    setLogin({
-      ...login,
+    setUser({
+      ...user,
       [e.target.name]: e.target.value
     })
+    console.log("e: ", e.target.name)
+    const emailVal = e.target.name.value
+    const testEmail = EMAIL_REGEX.test(emailVal);
+    console.log("testEmail: ", testEmail)
+    if (e.target.name === 'email' && !EMAIL_REGEX.test(e.target.value)) {
+			console.log("en setError");
+      setErrors({ ...errors, [e.target.name]: true })
+		} else {
+      console.log("else!!")
+      setErrors({ ...errors, [e.target.name]: false })
+    }
   }
-  console.log("user: ", user.email)
-  console.log("ERRORS: ", errors.email)
+  console.log("ERRORS: ", errors)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setSendPressed(true)
-    if (e.target.name === 'email' && e.target.value.match(EMAIL_REGEX)) {
-      setUser({ ...user, [e.target.name]: e.target.value })
-		} 
-    if (e.target.name === 'email' && !e.target.value.match(EMAIL_REGEX)) {
-			console.log("true!!:  ", !e.target.value.match(EMAIL_REGEX) );
-      setErrors({ ...errors, [e.target.name]: true })
-		} 
-    if (e.target.name === 'password' && e.target.value.match(PASS_REGEX)) {
-      setUser({ ...user, [e.target.name]: e.target.value })
-		} 
-    if (e.target.name === 'password' && !e.target.value.match(PASS_REGEX)) {
-			console.log("true!!");
-      setErrors({ ...errors, [e.target.name]: true })
-		} 
+    if (e.target[0].value == '') {
+      setErrors( errors => ({ ...errors, email: true} ))
+    }
+    if (e.target[2].value === '') {
+      setErrors( errors => ({ ...errors, password: true}) )
+      console.log("En setErrors 2")
+    }
+
+    console.log("e.target[0].value: ",e.target[0].value, "  name: ", e.target[0].name)
+    console.log("e.target[2].value: ",e.target[2].value, "  name: ", e.target[2].name)
+    if ( e.target[0].value !==''  && e.target[2].value !== '' ) {
+      handleLogin(e)
+    } else console.log("NO ENTRA A handleLogin")
   }
+  console.log("ERRORS despues: ", errors)
+
   /* const handleLogin = (event) => {
     event.preventDefault()
     Swal.fire({
@@ -115,7 +111,7 @@ const Login = () => {
         <Grid item xs={12} sm={5} as='form' onSubmit={(e) => handleSubmit(e)} sx={{color: 'white', display: 'flex', flexDirection:'column', padding: '5em 5em 0 5em'}}>
           <TextField
             name='email'
-            value={login.email}
+            value={user.email}
             onChange={(e) => handleChange(e)}
             /* type="email"  */
             placeholder="email..." 
@@ -128,15 +124,19 @@ const Login = () => {
             variant="outlined"
             true={'false'}
           />
-          {/* <Typography sx={{ color: 'red' , visibility: errors.email? 'visible' : 'hidden' }} >Debe ingresar un email válido</Typography> */}
+          { (errors.email && sendPressed)? 
+            <Typography sx={{ color: 'red', visibility: 'visible' }} >Debe ingresar un email válido</Typography>
+            :
+            <Typography sx={{ visibility: 'hidden' }} >Debe ingresar un email válido</Typography>
+          }
           <TextField
             /* variant="outlined" */
             name='password'
-            value={login.password}
+            value={user.password}
             onChange={handleChange}
             type="password" 
             placeholder="password..." 
-            sx={{ margin: '3em 0 3em 0' ,input: {color: '#FFFFFF', border: '1px solod white' }, 
+            sx={{  margin: '3em 0 0em 0', input: {color: '#FFFFFF', border: '1px solid white' }, 
               border: '1px solid white', 
               '& input::placeholder': {
                 color: 'white', opacity:0.7
@@ -144,7 +144,12 @@ const Login = () => {
             }}
             /* className='loginTextField' */
           />
-          <Button type="submit" variant="contained" sx={{color: 'black', background: '#FAFF00', '&:hover' : {background: '#FAFF00'}}}>login</Button>
+          { (errors.password && sendPressed)? 
+            <Typography sx={{ color: 'red', visibility: 'visible' }} >password incorrecto</Typography>
+            :
+            <Typography sx={{ visibility: 'hidden' }} >password incorrecto</Typography>
+          }
+          <Button type="submit" variant="contained" sx={{ margin: '3em 0 0em 0' , color: 'black', background: '#FAFF00', '&:hover' : {background: '#FAFF00'}}}>login</Button>
         </Grid>
         <Grid className='loginImg' item xs={12} sm={7} >
           <img src="./portadaLogin2.jpg" alt="imagen de fcultad de derecho" width={'100%'} />
