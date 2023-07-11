@@ -1,13 +1,19 @@
-import { createSlice} from '@reduxjs/toolkit'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const  initialState = {
-    name:"",
-    email:""
-};
 
-const userSlice = createSlice({
-    name:"user",
-    initialState
+
+export const userApi = createApi({
+    reducerPath:'userApi',
+    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:3001/'}),
+    endpoints:(builder) => ({
+        addUser: builder.mutation({
+            query: (input) => ({
+                url:'api/auth/signup',
+                method:'POST',
+                body:input
+            })
+        })
+    })
 });
 
-export default userSlice
+export const { useAddUserMutation } = userApi;
