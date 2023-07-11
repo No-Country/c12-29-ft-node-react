@@ -39,6 +39,10 @@ const LawyerSchema = new Schema({
 		type: String,
 		required: true
 	},
+	license: {
+		type: String,
+		required: true
+	},
 	meets: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Meet'
