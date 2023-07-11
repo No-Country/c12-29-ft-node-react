@@ -4,7 +4,7 @@ import NavbarMenu from './NavbarMenu'
 
 const Navbar = (props) => {
   const isLogged = props.isLogged
-  const buttonStyle = { fontSize: 12, textTransform: 'none', color: 'white' }
+  const buttonStyle = { fontSize: 16, textTransform: 'none', color: 'white' }
   return (
     <Box sx={{ width: 1 }}>
       <AppBar position="static" color='transparent'>
@@ -13,16 +13,15 @@ const Navbar = (props) => {
             LegalTech
           </Typography>
           {isLogged
-            ? <Stack direction='row' spacing={2}>
+            ? <Stack direction='row' spacing={5}>
                 <NavLink to='/'><Button sx={buttonStyle} color='inherit'>Home</Button></NavLink>
                 <NavLink to='/aboutServices'><Button sx={buttonStyle} color='inherit'>Servicios</Button></NavLink>
                 <NavbarMenu />
               </Stack>
-            : <Stack direction='row' spacing={2}>
-                <NavLink to='/'><Button sx={buttonStyle} color='inherit'><p>Home</p></Button></NavLink>
-                <NavLink to='/aboutServices'><Button sx={buttonStyle} color='inherit'><p>Servicios</p></Button></NavLink>
-                <NavLink to='/login'><Button sx={buttonStyle} color="inherit"><p>Ingresar</p></Button></NavLink>
-                <NavLink to='/signup'><Button sx={buttonStyle} color="inherit"><p>Registrarse</p></Button></NavLink>
+            : <Stack direction='row' spacing={5}>
+                <NavLink to='/'><Button sx={buttonStyle} color='inherit'>Home</Button></NavLink>
+                <NavLink to='/aboutServices'><Button sx={buttonStyle} color='inherit'>Servicios</Button></NavLink>
+                <NavLink to='/login'><Button sx={buttonStyle} color="inherit">Ingresar</Button></NavLink>
               </Stack>
           }
         </Toolbar>
