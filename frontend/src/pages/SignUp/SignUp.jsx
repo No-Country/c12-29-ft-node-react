@@ -1,27 +1,31 @@
 import { Button } from '@mui/material';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import { contraseña, email, nombre } from './validacionesSignUp';
+import { useAddUserMutation } from '../../redux/userReducer';
+
 
 const SignUp = () => {
+
+    const [ addUser ]= useAddUserMutation();
+
     const [input, setInput] = useState({
-        nombre:'',
-        apellido:'',
+        firstname:'',
+        lastname:'',
         email:'',
-        contraseña:'',
-        confirmarContraseña:'',
-        matricula:'',
-        servicio:''
+        password:'',
+        confirmpassword:'',
+        license:'',
+        usertype:''
     });
 
     const [error, setError] = useState({
-        nombre:'',
-        apellido:'',
+        firstname:'',
+        lastname:'',
         email:'',
-        contraseña:'',
-        confirmarContraseña:'',
-        matricula:'',
-        servicio:''
+        password:'',
+        confirmpassword:'',
+        license:'',
+        usertype:''
     })
 
     const [disabled, setDisabled]= useState({
@@ -32,73 +36,74 @@ const SignUp = () => {
 
     const handleChange = (e) => {
         const {value, name} = e.target
-        name === 'servicio' ? setDisabled({...disabled, select: true}) : null;
+        name === 'usertype' ? setDisabled({...disabled, select: true}) : null;
         setInput({
             ...input,
             [name]: value
         });
 
-        if(value < 4){
+        if(name !== 'license' && value.length < 4){
             setError({
                 ...error,
-                [name]:`${name} tiene que tener mas de 3 caracteres`
+                [name]:`Tiene que tener mas de 3 caracteres`
             })
         } else {
             if(name === 'email' ){
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 emailRegex.test(value) ? setError({...error, email:''}) : setError({...error, email:'Debes proporcionar un email valido'});
             }
-            else if(name === 'contraseña'){
+            else if(name === 'password'){
                 const nameRegex = /^[A-Za-z]+$/;
-                nameRegex.test(value) ? setError({...error, contraseña:''}) : setError({...error, contraseña:'Debes proporcionar una contraseña valida'}) 
+                nameRegex.test(value) ? setError({...error, password:''}) : setError({...error, password:'Debes proporcionar una contraseña valida'}) 
             }
-            else if(name === 'nombre'){
+            else if(name === 'firstname'){
                 const nameRegex = /^[A-Za-z]+$/;
-                nameRegex.test(value) ? setError({...error, nombre:''}) : setError({...error, nombre:'Debes proporcionar un nombre valido'}) 
+                nameRegex.test(value) ? setError({...error, firstname:''}) : setError({...error, firstname:'Debes proporcionar un nombre valido'}) 
             }
-            else if(name === 'confirmarContraseña'){
-                value === input.contraseña ? setError({ ...error, confirmarContraseña: '' }) : setError({ ...error, confirmarContraseña: 'Las contraseñas deben coincidir' });
+            else if(name === 'confirmpassword'){
+                value === input.password ? setError({ ...error, confirmpassword: '' }) : setError({ ...error, confirmpassword: 'Las contraseñas deben coincidir' });
             } 
-            else if(name === 'apellido'){
-                nombre.test(value) ? setError({...error, apellido:''}) : setError({...error, apellido:'Debes proporcionar un apellido valido'}) 
+            else if(name === 'lastname'){
+                const nameRegex = /^[A-Za-z]+$/;
+                nameRegex.test(value) ? setError({...error, lastname:''}) : setError({...error, lastname:'Debes proporcionar un lastname valido'}) 
             }
              else {
                 setError({ 
                 ...error, 
                 [name]: ''
             })
-        }
-        }
+        }}
     };
 
     useEffect(() => {
-        const isDisabled = !input.apellido || !input.confirmarContraseña || !input.contraseña || !input.email || error.apellido || error.confirmarContraseña || error.contraseña || error.email || error.nombre 
+        const isDisabled = !input.lastname || !input.confirmpassword || !input.password || !input.email || !input.firstname || error.lastname || error.confirmpassword || error.password || error.email || error.firstname ? true : false
+        console.log('isDisabled', isDisabled)
         disabled.buttonRegister !== isDisabled && setDisabled({...disabled, buttonRegister: isDisabled});
     },[input, error])
 
     const handleRegister = (e) => {
         e.preventDefault();
-        input.apellido && input.confirmarContraseña && input.contraseña && input.email && input.matricula && input.nombre && input.servicio && !error.apellido && !error.confirmarContraseña && !error.contraseña && !error.email && !error.matricula && !error.nombre && !error.servicio ? console.log(input) : console.log('faltan datos')
+        input.lastname && input.confirmpassword && input.password && input.email && input.license && input.firstname && input.usertype && !error.lastname && !error.confirmpassword && !error.password && !error.email && !error.license && !error.firstname && !error.usertype ? addUser(input) : console.log('faltan datos', input)
     }
 
   return (
     <form onSubmit={handleRegister}>
         <input
-        name='nombre'
-        value={input.nombre}
+        name='firstname'
+        value={input.firstname}
         placeholder='Nombre...'
         type='text'
         onChange={handleChange}
         />
-        <span>{error.nombre && error.nombre}</span>
+        <span>{error.firstname && error.firstname}</span>
         <input
-        name='apellido'
-        value={input.apellido}
-        placeholder='Apellido'
+        name='lastname'
+        value={input.lastname}
+        placeholder='Apellido...'
         type='text'
         onChange={handleChange}
         />
-        <span>{error.apellido && error.apellido}</span>
+        <span>{error.lastname && error.lastname}</span>
         <input
         name='email'
         value={input.email}
@@ -108,32 +113,32 @@ const SignUp = () => {
         />
         <span>{error.email && error.email}</span>
         <input
-        name='contraseña'
-        value={input.contraseña}
+        name='password'
+        value={input.password}
         placeholder='Contraseña...'
         type='password'
         onChange={handleChange}
         />
-        <span>{error.contraseña && error.contraseña}</span>
+        <span>{error.password && error.password}</span>
         <input
-        name='confirmarContraseña'
-        value={input.confirmarContraseña}
+        name='confirmpassword'
+        value={input.confirmpassword}
         placeholder='Confirmar contraseña...'
         type='password'
         onChange={handleChange}
         />
-        <span>{error.confirmarContraseña && error.confirmarContraseña}</span>
+        <span>{error.confirmpassword && error.confirmpassword}</span>
         <input
-        name='matricula'
-        value={input.matricula}
+        name='license'
+        value={input.license}
         placeholder='Numero de Matricula'
         type='text'
         onChange={handleChange}
         />
-        <select name='servicio' onChange={handleChange}>
+        <select name='usertype' onChange={handleChange}>
             <option value='profesion' disabled={disabled.select}>Profesion</option>
-            <option name='servicio' value='abogado'>Abogado</option>
-            <option name='servicio' value='cliente'>Cliente</option>
+            <option name='usertype' value='abogado'>Abogado</option>
+            <option name='usertype' value='cliente'>Cliente</option>
         </select>
         <Button type="submit" color="primary" disabled={disabled.buttonRegister}>Registrate!</Button>
     </form>
