@@ -69,42 +69,23 @@ const Contact = () => {
   }))
 
   return (
-    <Container ref={form} as='section' maxWidth='false' sx={{ background: '#E7E7E7', width: '100%', mx:0, display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-      <Box sx={{width: '36%', padding: '6em 0 6em 0' }} >
-        <Typography variant="h2" gutterBottom sx={{ fontSize: '1.125em', lineHeight: '1.3em', fontStyle: 'italic', fontWeight: '500', color: '#3D3D3D', fontFamily: 'sans-serif' }}>contact us for more information</Typography>
-        <Box
-          component= 'form'
-          onSubmit={ (e) => sendEmail(e) }
-          ref={form}
-          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start' }} >
-          <Box sx={{ width: '100%', border: ' none' }}>
-            <OutlinedInput 
-              type="email" 
-              name="user_email" 
-              sx={{ borderRadius:0, width:'100%', margin: '2em 0 0em 0', padding: '0.5em'}} 
-              placeholder='email...'  
-              value={email}
-              onChange={validateEmail}
-              error={Boolean((!emailValid & sendPressed))}
-              className='contactEmail'
-            />
-          { !emailValid && sendPressed?
-            <Typography sx={{ color: 'red', marginBottom: '1em'}}>
-              Debe ingresar un email válido
-            </Typography> 
-            : 
-            <Typography sx={{ visibility: 'hidden', marginBottom: '1em'}}>espacio</Typography>
-          }
-          </Box>
-          <textarea
-            value={message} 
-            onChange={(e) =>validateMessage(e)} 
-            aria-label="minimum height" 
-            rows={8} 
-            placeholder="message..." 
-            type='text' 
-            name="message" 
-            className='contactTextarea'
+    <Container ref={form} as='section' sx={{ width: '36%', background: '#E7E7E7', padding: '6em 0 6em 0' }}>
+      <Typography variant="h2" gutterBottom sx={{ fontSize: '1.125em', lineHeight: '1.3em', fontStyle: 'italic', fontWeight: '500', color: '#3D3D3D', fontFamily: 'sans-serif' }}>contact us for more information</Typography>
+      <Box
+        component= 'form'
+        onSubmit={ (e) => sendEmail(e) }
+        ref={form}
+        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start' }} >
+        <Box sx={{ width: '100%', border: ' none' }}>
+          <OutlinedInput 
+            type="email" 
+            name="user_email" 
+            sx={{ borderRadius:0, width:'100%', margin: '2em 0 0em 0', padding: '0.5em'}} 
+            placeholder='email...'  
+            value={email}
+            onChange={validateEmail}
+            error={Boolean((!emailValid & sendPressed))}
+            className='contactEmail'
           />
           { !messageValid && sendPressed?
             <Typography sx={{ color: 'red', marginBottom: '1em'}}>
