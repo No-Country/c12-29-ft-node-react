@@ -1,21 +1,30 @@
 import { Stack, Button, Typography, Toolbar, Box, AppBar } from '@mui/material'
 import { NavLink } from 'react-router-dom'
+import NavbarMenu from './NavbarMenu'
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const isLogged = props.isLogged
+  const buttonStyle = { fontSize: 12, textTransform: 'none', color: 'white' }
   return (
     <Box sx={{ width: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Empresa
+      <AppBar position="static" color='transparent'>
+        <Toolbar sx={{ pt: 1, pb: 1, display: 'flex' }}>
+          <Typography variant="h6" color="common.white" component="div" sx={{ flexGrow: 1 }}>
+            LegalTech
           </Typography>
-          <Stack direction='row' spacing={2}>
-            <NavLink to='/'><Button sx={{ fontSize: 12 }} color='inherit'>Home</Button></NavLink>
-            <NavLink to='/aboutServices'><Button sx={{ fontSize: 12 }} color='inherit'>Servicios</Button></NavLink>
-            <NavLink to='/contact'><Button sx={{ fontSize: 12 }} color='inherit'>Contacto</Button></NavLink>
-          </Stack>
-          <NavLink to='/login'><Button sx={{ m: 2 }} color="inherit">Login</Button></NavLink>
-          <NavLink to='/signup'><Button sx={{ m: 2 }} color="inherit">Registrate</Button></NavLink>
+          {isLogged
+            ? <Stack direction='row' spacing={2}>
+                <NavLink to='/'><Button sx={buttonStyle} color='inherit'>Home</Button></NavLink>
+                <NavLink to='/aboutServices'><Button sx={buttonStyle} color='inherit'>Servicios</Button></NavLink>
+                <NavbarMenu />
+              </Stack>
+            : <Stack direction='row' spacing={2}>
+                <NavLink to='/'><Button sx={buttonStyle} color='inherit'><p>Home</p></Button></NavLink>
+                <NavLink to='/aboutServices'><Button sx={buttonStyle} color='inherit'><p>Servicios</p></Button></NavLink>
+                <NavLink to='/login'><Button sx={buttonStyle} color="inherit"><p>Ingresar</p></Button></NavLink>
+                <NavLink to='/signup'><Button sx={buttonStyle} color="inherit"><p>Registrarse</p></Button></NavLink>
+              </Stack>
+          }
         </Toolbar>
       </AppBar>
     </Box>
