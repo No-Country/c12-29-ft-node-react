@@ -3,13 +3,22 @@ import Home from './pages/Home/Home'
 import Login from './pages/login/Login'
 import AboutServices from './pages/Home/AboutServices'
 import Contact from './pages/Home/contact/Contact'
-import './normalize.css'
+import './css/normalize.css'
 import SignUp from './pages/SignUp/SignUp'
+import { createTheme, ThemeProvider } from '@mui/material'
 
 const App = () => {
+  const theme = createTheme({
+    typography: {
+      fontFamily: [
+        'KoHo'
+      ].join(',')
+    }
+  })
   return (
 
     <>
+      <ThemeProvider theme={theme}>
         <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
@@ -17,6 +26,7 @@ const App = () => {
             <Route path='/contact' element={<Contact />} />
             <Route path='/signup' element={<SignUp />} />
         </Routes>
+      </ThemeProvider>
     </>
   )
 }
