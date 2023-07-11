@@ -69,7 +69,7 @@ const Contact = () => {
   }))
 
   return (
-    <Container ref={form} as='section' style={{ width: '36%', background: '#E7E7E7', padding: '6em 0 6em 0' }}>
+    <Container ref={form} as='section' sx={{ width: '36%', background: '#E7E7E7', padding: '6em 0 6em 0' }}>
       <Typography variant="h2" gutterBottom sx={{ fontSize: '1.125em', lineHeight: '1.3em', fontStyle: 'italic', fontWeight: '500', color: '#3D3D3D', fontFamily: 'sans-serif' }}>contact us for more information</Typography>
       <Box
         component= 'form'
