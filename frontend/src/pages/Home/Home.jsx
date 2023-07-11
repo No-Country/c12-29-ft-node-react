@@ -4,7 +4,8 @@ import Footer from './Footer'
 import Navbar from '../../components/Navbar'
 import Box from '@mui/material/Box'
 import './styles.home.css'
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Navbar isLogged={true}/>
         <Typography as="h1">Abogados</Typography>
         <Typography>Servicios de compra y venta de servicios legales</Typography>
+        <Button variant="contained" ><Link to={'/login'}>login</Link></Button>
       </Box>
       <AboutServices />
       <Contact />
