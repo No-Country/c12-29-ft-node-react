@@ -45,12 +45,14 @@ const Contact = () => {
     if (emailValid && messageValid) {
       emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, PUBLIC_KEY)
         .then((result) => {
-        }, (error) => {
+          if (result.status === 200){
+            e.target.message.value = ''
+            e.target.user_email.value = ''
+          }
+        })
+        .catch( error => {
           console.log(error.text)
         })
-        console.log("enviado")
-        e.target.message.value = ''
-        e.target.user_email.value = ''
     }
   }
 
@@ -65,8 +67,7 @@ const Contact = () => {
       backgroundColor: '#212f3d '
     }
   }))
-  console.log('Boolean(emailValid & sendPressed): ', Boolean(emailValid & sendPressed))
-  console.log("emailValid: ", emailValid, "sendPressed", sendPressed)
+
   return (
     <Container ref={form} as='section' style={{ width: '36%', background: '#E7E7E7', padding: '6em 0 6em 0' }}>
       <Typography variant="h2" gutterBottom sx={{ fontSize: '1.125em', lineHeight: '1.3em', fontStyle: 'italic', fontWeight: '500', color: '#3D3D3D', fontFamily: 'sans-serif' }}>contact us for more information</Typography>
