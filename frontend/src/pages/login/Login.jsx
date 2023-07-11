@@ -1,6 +1,6 @@
 import { Box, Button, Container, TextField, Grid, Typography } from '@mui/material'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import Navbar from '../../components/Navbar'
 import './styles.login.css'
@@ -150,9 +150,11 @@ const Login = () => {
             <Typography sx={{ visibility: 'hidden' }} >password incorrecto</Typography>
           }
           <Button type="submit" variant="contained" sx={{ margin: '3em 0 0em 0' , color: 'black', background: '#FAFF00', '&:hover' : {background: '#FAFF00'}}}>login</Button>
+          <Typography>¿No tienes una cuenta?</Typography>
+          <Button><Link to={'/registro'}>Registrarse</Link></Button>
         </Grid>
-        <Grid className='loginImg' item xs={12} sm={7} >
-          <img src="./portadaLogin2.jpg" alt="imagen de fcultad de derecho" width={'100%'} />
+        <Grid className='loginBoxImg' item xs={12} sm={7} >
+          <img src="./portadaLogin.jpg" alt="imagen de fcultad de derecho" width={'100%'} style={{ filter: 'brightness(40%)'}}  />
         </Grid>
       </Grid>
     </Container>
