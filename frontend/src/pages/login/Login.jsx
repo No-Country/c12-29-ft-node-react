@@ -29,24 +29,11 @@ const Login = () => {
   async function handleLogin (e) {
     e.preventDefault()
       try {
-				const response = await getUser(user);
-				console.log(response);
+				const { data } = await getUser(user);
+        localStorage.setItem('token', data.token);
       } catch (error) {
-          console.log("ERROR MESSAGE:", error.message)
+          console.log("ERROR MESSAGE:", error.message);
       }
-
-  //   fetch('http://localhost:3001/api/auth/signin?IsClient=true', {
-  //     method: 'post',
-  //     mode: "cors",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       /* 'Access-Control-Allow-Origin': 'http://localhost:5173' */
-  //     },
-
-  //     body: JSON.stringify(user)
-  //   })
-  //   .then(response => response.json() )
-  //   .catch(error => console.log("ERROR MESSAGE:", error.message))
   }
 
   const handleChange = (e) => {
@@ -54,19 +41,14 @@ const Login = () => {
       ...user,
       [e.target.name]: e.target.value
     })
-    //console.log("e: ", e.target.name)
     const emailVal = e.target.name.value
     const testEmail = EMAIL_REGEX.test(emailVal);
-    //console.log("testEmail: ", testEmail)
     if (e.target.name === 'email' && !EMAIL_REGEX.test(e.target.value)) {
-			//console.log("en setError");
       setErrors({ ...errors, [e.target.name]: true })
 		} else {
-      //console.log("else!!")
       setErrors({ ...errors, [e.target.name]: false })
     }
   }
-  //console.log("ERRORS: ", errors)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -78,14 +60,10 @@ const Login = () => {
       setErrors( errors => ({ ...errors, password: true}) )
       console.log("En setErrors 2")
     }
-
-    //console.log("e.target[0].value: ",e.target[0].value, "  name: ", e.target[0].name)
-    //console.log("e.target[2].value: ",e.target[2].value, "  name: ", e.target[2].name)
     if ( e.target[0].value !==''  && e.target[2].value !== '' ) {
       handleLogin(e)
     } else console.log("NO ENTRA A handleLogin")
   }
-  //console.log("ERRORS despues: ", errors)
 
   /* const handleLogin = (event) => {
     event.preventDefault()
