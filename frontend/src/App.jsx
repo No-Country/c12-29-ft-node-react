@@ -8,6 +8,11 @@ import SignUp from './pages/SignUp/SignUp'
 import { createTheme, ThemeProvider } from '@mui/material'
 
 const App = () => {
+  const { data } = localStorage.getItem('usuario');
+  
+  console.log(data)
+
+
   const theme = createTheme({
     typography: {
       fontFamily: [
