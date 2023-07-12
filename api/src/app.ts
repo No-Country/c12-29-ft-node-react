@@ -5,6 +5,7 @@ import lawyersRouter from './routes/lawyer'
 import subscriptionsRouter from './routes/subscription'
 import meetsRouter from './routes/meet'
 import paymentsRouter from './routes/payment'
+import specialitiesRouter from './routes/speciality'
 
 import cors from 'cors'
 import morgan from 'morgan'
@@ -44,6 +45,6 @@ app.use('/api/lawyers',lawyersRouter)
 app.use('/api/subscriptions',subscriptionsRouter)
 app.use('/api/meets',meetsRouter)
 app.use('/api/payments', paymentsRouter)
-
+app.use('/api/specialities', specialitiesRouter)
 
 export default app
