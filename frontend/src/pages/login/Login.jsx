@@ -151,7 +151,7 @@ const Login = () => {
           }
           <Button type="submit" variant="contained" sx={{ margin: '3em 0 0em 0' , color: 'black', background: '#FAFF00', '&:hover' : {background: '#FAFF00'}}}>login</Button>
           <Typography>¿No tienes una cuenta?</Typography>
-          <Button><Link to={'/registro'}>Registrarse</Link></Button>
+          <Button><Link to={'/signup'}>Registrarse</Link></Button>
         </Grid>
         <Grid className='loginBoxImg' item xs={12} sm={7} >
           <img src="./portadaLogin.jpg" alt="imagen de fcultad de derecho" width={'100%'} style={{ filter: 'brightness(40%)'}}  />
