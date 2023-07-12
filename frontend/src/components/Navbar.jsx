@@ -2,6 +2,7 @@ import { Stack, Button, Typography, Toolbar, Box, AppBar } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import NavbarMenu from './NavbarMenu'
 
+
 const Navbar = (props) => {
   const isLogged = props.isLogged
   const buttonStyle = { fontSize: 16, textTransform: 'none', color: 'white' }

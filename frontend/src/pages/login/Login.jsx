@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar'
 import './styles.login.css'
 import loginImg from '../../assets/login.jpg'
 import { useGetUserMutation } from '../../redux/userReducer'
+
 const Login = () => {
   const navigate = useNavigate()
 	const [getUser]= useGetUserMutation()
@@ -34,19 +35,6 @@ const Login = () => {
       } catch (error) {
           console.log("ERROR MESSAGE:", error.message)
       }
-
-  //   fetch('http://localhost:3001/api/auth/signin?IsClient=true', {
-  //     method: 'post',
-  //     mode: "cors",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       /* 'Access-Control-Allow-Origin': 'http://localhost:5173' */
-  //     },
-
-  //     body: JSON.stringify(user)
-  //   })
-  //   .then(response => response.json() )
-  //   .catch(error => console.log("ERROR MESSAGE:", error.message))
   }
 
   const handleChange = (e) => {
@@ -54,19 +42,14 @@ const Login = () => {
       ...user,
       [e.target.name]: e.target.value
     })
-    //console.log("e: ", e.target.name)
     const emailVal = e.target.name.value
     const testEmail = EMAIL_REGEX.test(emailVal);
-    //console.log("testEmail: ", testEmail)
     if (e.target.name === 'email' && !EMAIL_REGEX.test(e.target.value)) {
-			//console.log("en setError");
       setErrors({ ...errors, [e.target.name]: true })
 		} else {
-      //console.log("else!!")
       setErrors({ ...errors, [e.target.name]: false })
     }
   }
-  //console.log("ERRORS: ", errors)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -79,13 +62,10 @@ const Login = () => {
       console.log("En setErrors 2")
     }
 
-    //console.log("e.target[0].value: ",e.target[0].value, "  name: ", e.target[0].name)
-    //console.log("e.target[2].value: ",e.target[2].value, "  name: ", e.target[2].name)
     if ( e.target[0].value !==''  && e.target[2].value !== '' ) {
       handleLogin(e)
     } else console.log("NO ENTRA A handleLogin")
   }
-  //console.log("ERRORS despues: ", errors)
 
   /* const handleLogin = (event) => {
     event.preventDefault()
@@ -97,6 +77,13 @@ const Login = () => {
       navigate('/')
     })
   } */
+  const {
+    data: posts,
+    isLoading,
+    isSuccess,
+    isError,
+    error
+  } = useGetUserMutation()
 
 
   return (
@@ -108,7 +95,6 @@ const Login = () => {
             name='email'
             value={user.email}
             onChange={(e) => handleChange(e)}
-            /* type="email"  */
             placeholder="email..." 
             sx={{ input: {color: '#FFFFFF' }, 
               border: '1px solid white', 
@@ -142,20 +128,20 @@ const Login = () => {
             :
             <Typography sx={{ visibility: 'hidden' }} >password incorrecto</Typography>
           }
-                 <FormControl sx={{ width:'80%', margin:'3% 0% 3% 0%'}} >
-                    <InputLabel id="demo-simple-select-label">Profesion</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={user.userType}
-                        label="Profesion"
-                        onChange={handleChange}
-                        name='userType'
-                        >
-                        <MenuItem value='abogado'>Abogado</MenuItem>
-                        <MenuItem value='cliente'>Cliente</MenuItem>
-                    </Select>
-                </FormControl>
+              <FormControl sx={{ width:'80%', margin:'3% 0% 3% 0%'}} >
+                <InputLabel id="demo-simple-select-label">Profesion</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={user.userType}
+                  label="Profesion"
+                  onChange={handleChange}
+                  name='userType'
+                  >
+                  <MenuItem value='abogado'>Abogado</MenuItem>
+                  <MenuItem value='cliente'>Cliente</MenuItem>
+                </Select>
+              </FormControl>
           <Button type="submit" variant="contained" sx={{ margin: '3em 0 0em 0' , color: 'black', background: '#FAFF00', '&:hover' : {background: '#FAFF00'}}}>login</Button>
           <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '1em', justifyContent: 'center'}}> 
             <Typography>¿No tienes una cuenta?</Typography>
@@ -165,7 +151,6 @@ const Login = () => {
         <Grid className='loginBoxImg' item xs={12} sm={7} >
           <img src={loginImg} alt="imagen de fcultad de derecho" width={'100%'} style={{ filter: 'brightness(40%)'}}  />
         </Grid>
- 
       </Grid>
     </Container>
   )
