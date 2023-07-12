@@ -11,7 +11,8 @@ const { JWT_SECRET } = process.env
 
 export const signup = async (req: Request,res: Response) => {
 	const { password, userType } = req.body
-	const isClient = userType === "cliente" ? true : false 
+	const isClient = userType === "cliente" ? true : false
+
 	try {
 		//saving new user
 		const hashedPassword = await encryptPassword(password)
@@ -27,8 +28,8 @@ export const signup = async (req: Request,res: Response) => {
 }
 
 export const signin = async (req: Request,res: Response) => {
-	const { email,password } = req.body
-	const { isClient } = req.query
+	const { email,password,userType } = req.body
+	const isClient = userType === "cliente" ? true : false
 
 	try {
 		//find user
