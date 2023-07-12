@@ -5,17 +5,20 @@ import Swal from 'sweetalert2'
 import Navbar from '../../components/Navbar'
 import './styles.login.css'
 import loginImg from '../../assets/login.jpg'
+import { useGetUserMutation } from '../../redux/userReducer'
 const Login = () => {
   const navigate = useNavigate()
-
+	const [getUser]= useGetUserMutation()
   const [user, setUser] = useState({
     email: '',
-    password: ''
+    password: '',
+		userType: ''
   })
 
   const [errors, setErrors] = useState({
     email: false,
     password: false
+		
   })
 
   const [sendPressed, setSendPressed] = useState(false)
@@ -26,15 +29,17 @@ const Login = () => {
   async function handleLogin(e) {
     e.preventDefault()
       try {
-        const getToken = await fetch('http://localhost:3001/api/auth/signup?IsClient=true', {
-          method: 'post',
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(user)
-        })
-        const response = await getToken.json()
-        console.log('response: ', response)
+				const response = getUser()
+				console.log(response);
+        // const getToken = await fetch(`http://localhost:3001/api/auth/signup`, {
+        //   method: 'post',
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(user)
+        // })
+        // const response = await getToken.json()
+        // console.log('response: ', response)
       } catch (error) {
           console.log("ERROR MESSAGE:", error.message)
       }

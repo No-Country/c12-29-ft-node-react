@@ -15,7 +15,7 @@ const SignUp = () => {
         password:'',
         confirmpassword:'',
         license:'',
-        usertype:''
+        userType:''
     });
 
     const [error, setError] = useState({
@@ -25,7 +25,7 @@ const SignUp = () => {
         password:'',
         confirmpassword:'',
         license:'',
-        usertype:''
+        userType:''
     })
 
     const [disabled, setDisabled]= useState({
@@ -36,7 +36,7 @@ const SignUp = () => {
 
     const handleChange = (e) => {
         const {value, name} = e.target
-        name === 'usertype' ? setDisabled({...disabled, select: true}) : null;
+        name === 'userType' ? setDisabled({...disabled, select: true}) : null;
         setInput({
             ...input,
             [name]: value
@@ -83,7 +83,7 @@ const SignUp = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        input.lastname && input.confirmpassword && input.password && input.email && input.license && input.firstname && input.usertype && !error.lastname && !error.confirmpassword && !error.password && !error.email && !error.license && !error.firstname && !error.usertype ? addUser(input) : console.log('faltan datos', input)
+        input.lastname && input.confirmpassword && input.password && input.email && input.license && input.firstname && input.userType && !error.lastname && !error.confirmpassword && !error.password && !error.email && !error.license && !error.firstname && !error.userType ? addUser(input) : console.log('faltan datos', input)
     }
 
   return (
@@ -135,10 +135,10 @@ const SignUp = () => {
         type='text'
         onChange={handleChange}
         />
-        <select name='usertype' onChange={handleChange}>
+        <select name='userType' onChange={handleChange}>
             <option value='profesion' disabled={disabled.select}>Profesion</option>
-            <option name='usertype' value='abogado'>Abogado</option>
-            <option name='usertype' value='cliente'>Cliente</option>
+            <option name='userType' value='abogado'>Abogado</option>
+            <option name='userType' value='cliente'>Cliente</option>
         </select>
         <Button type="submit" color="primary" disabled={disabled.buttonRegister}>Registrate!</Button>
     </form>
