@@ -4,9 +4,11 @@ import { useEffect } from 'react';
 import { useAddUserMutation } from '../../redux/userReducer';
 import img_signup from '../../assets/img_signup.png'
 import Navbar from '../../components/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
 
+    const navigate = useNavigate();
     const [ addUser ] = useAddUserMutation();
 
     const [input, setInput] = useState({
@@ -26,8 +28,9 @@ const SignUp = () => {
         password:'',
         confirmpassword:'',
         license:'',
-        userType:''
-    })
+        userType:'',
+    });
+    
 
     const [disabled, setDisabled]= useState(false);
     
@@ -79,10 +82,9 @@ const SignUp = () => {
 
      const handleRegister = async (e) => {
         e.preventDefault();
-        // input.lastname && input.confirmpassword && input.password && input.email && input.license && input.firstname && input.userType && !error.lastname && !error.confirmpassword && !error.password && !error.email && !error.license && !error.firstname && !error.userType ? addUser(input) : console.log('faltan datos', input)
         try {
             await addUser(input);
-            console.log('registro existoso', input)
+            navigate('/login');
         } catch (error) {
             console.log('error', error)
         }
@@ -102,7 +104,7 @@ const SignUp = () => {
             type={'text'}
             value={input.firstname}
             onChange={handleChange}
-            error={error.firstname}
+            error={error.firstname.length > 1 ? true : false}
             helperText={error.firstname}
             sx={{ input: {color: '#FFFFFF' }, 
                     width:'38%',
@@ -116,7 +118,7 @@ const SignUp = () => {
                     type={'text'}
                     value={input.lastname}
                     onChange={handleChange}
-                    error={error.lastname}
+                    error={error.lastname.length > 1 ? true : false}
                     helperText={error.lastname}
                     sx={{ width:'38%'}}
             />
@@ -129,7 +131,7 @@ const SignUp = () => {
                     type={'email'}
                     value={input.email}
                     onChange={handleChange}
-                    error={error.email}
+                    error={error.email.length > 1 ? true : false}
                     helperText={error.email}
                     sx={{ width:'80%', margin:'3% 0% 3% 0%'}}
             />
@@ -142,7 +144,7 @@ const SignUp = () => {
                 type={'password'}
                 value={input.password}
                 onChange={handleChange}
-                error={error.password}
+                error={error.password-length > 1 ? true : false}
                 helperText={error.password}
                 sx={{ width:'80%', margin:'3% 0% 3% 0%'}}
                 />
@@ -155,7 +157,7 @@ const SignUp = () => {
                     type={'password'}
                     value={input.confirmpassword}
                     onChange={handleChange}
-                    error={error.confirmpassword}
+                    error={error.confirmpassword.length > 1 ? true : false}
                     helperText={error.confirmpassword}
                     sx={{ width:'80%', margin:'3% 0% 3% 0%'}}
             />
