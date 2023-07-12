@@ -1,11 +1,10 @@
 import { Box, Button, Container, TextField, Grid, Typography } from '@mui/material'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import Navbar from '../../components/Navbar'
 import './styles.login.css'
-/* import loginImg from '../../../public/back2 1(1).jpg' */
-
+import loginImg from '../../assets/login.jpg'
 const Login = () => {
   const navigate = useNavigate()
 
@@ -130,7 +129,6 @@ const Login = () => {
             <Typography sx={{ visibility: 'hidden' }} >Debe ingresar un email válido</Typography>
           }
           <TextField
-            /* variant="outlined" */
             name='password'
             value={user.password}
             onChange={handleChange}
@@ -142,7 +140,6 @@ const Login = () => {
                 color: 'white', opacity:0.7
               }
             }}
-            /* className='loginTextField' */
           />
           { (errors.password && sendPressed)? 
             <Typography sx={{ color: 'red', visibility: 'visible' }} >password incorrecto</Typography>
@@ -150,9 +147,13 @@ const Login = () => {
             <Typography sx={{ visibility: 'hidden' }} >password incorrecto</Typography>
           }
           <Button type="submit" variant="contained" sx={{ margin: '3em 0 0em 0' , color: 'black', background: '#FAFF00', '&:hover' : {background: '#FAFF00'}}}>login</Button>
+          <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '1em', justifyContent: 'center'}}> 
+            <Typography>¿No tienes una cuenta?</Typography>
+            <Button><Link to={'/signup'}>Registrarse</Link></Button>
+          </Box>
         </Grid>
-        <Grid className='loginImg' item xs={12} sm={7} >
-          <img src="./portadaLogin2.jpg" alt="imagen de fcultad de derecho" width={'100%'} />
+        <Grid className='loginBoxImg' item xs={12} sm={7} >
+          <img src={loginImg} alt="imagen de fcultad de derecho" width={'100%'} style={{ filter: 'brightness(40%)'}}  />
         </Grid>
       </Grid>
     </Container>
