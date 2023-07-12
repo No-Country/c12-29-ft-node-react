@@ -4,19 +4,21 @@ import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import Navbar from '../../components/Navbar'
 import './styles.login.css'
-/* import loginImg from '../../../public/back2 1(1).jpg' */
-
+import loginImg from '../../assets/login.jpg'
+import { useGetUserMutation } from '../../redux/userReducer'
 const Login = () => {
   const navigate = useNavigate()
-
+	const [getUser]= useGetUserMutation()
   const [user, setUser] = useState({
     email: '',
-    password: ''
+    password: '',
+		userType: ''
   })
 
   const [errors, setErrors] = useState({
     email: false,
     password: false
+		
   })
 
   const [sendPressed, setSendPressed] = useState(false)
@@ -27,15 +29,17 @@ const Login = () => {
   async function handleLogin(e) {
     e.preventDefault()
       try {
-        const getToken = await fetch('http://localhost:3001/api/auth/signup?IsClient=true', {
-          method: 'post',
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(user)
-        })
-        const response = await getToken.json()
-        console.log('response: ', response)
+				const response = getUser()
+				console.log(response);
+        // const getToken = await fetch(`http://localhost:3001/api/auth/signup`, {
+        //   method: 'post',
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(user)
+        // })
+        // const response = await getToken.json()
+        // console.log('response: ', response)
       } catch (error) {
           console.log("ERROR MESSAGE:", error.message)
       }
@@ -130,7 +134,6 @@ const Login = () => {
             <Typography sx={{ visibility: 'hidden' }} >Debe ingresar un email válido</Typography>
           }
           <TextField
-            /* variant="outlined" */
             name='password'
             value={user.password}
             onChange={handleChange}
@@ -142,7 +145,6 @@ const Login = () => {
                 color: 'white', opacity:0.7
               }
             }}
-            /* className='loginTextField' */
           />
           { (errors.password && sendPressed)? 
             <Typography sx={{ color: 'red', visibility: 'visible' }} >password incorrecto</Typography>
@@ -150,11 +152,13 @@ const Login = () => {
             <Typography sx={{ visibility: 'hidden' }} >password incorrecto</Typography>
           }
           <Button type="submit" variant="contained" sx={{ margin: '3em 0 0em 0' , color: 'black', background: '#FAFF00', '&:hover' : {background: '#FAFF00'}}}>login</Button>
-          <Typography>¿No tienes una cuenta?</Typography>
-          <Button><Link to={'/registro'}>Registrarse</Link></Button>
+          <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '1em', justifyContent: 'center'}}> 
+            <Typography>¿No tienes una cuenta?</Typography>
+            <Button><Link to={'/signup'}>Registrarse</Link></Button>
+          </Box>
         </Grid>
         <Grid className='loginBoxImg' item xs={12} sm={7} >
-          <img src="./portadaLogin.jpg" alt="imagen de fcultad de derecho" width={'100%'} style={{ filter: 'brightness(40%)'}}  />
+          <img src={loginImg} alt="imagen de fcultad de derecho" width={'100%'} style={{ filter: 'brightness(40%)'}}  />
         </Grid>
       </Grid>
     </Container>
