@@ -2,6 +2,7 @@ import { Request,Response } from "express";
 import { deleteImage, uploadImage } from "../libs/cloudinary";
 import fs from 'fs-extra'
 import Client from '../models/Client'
+import Lawyer from "models/Lawyer";
 
 export const getClients = async (req: Request,res: Response) => {
 	const { name } = req.query;
@@ -27,7 +28,9 @@ export const getClientById = async (req: Request,res: Response) => {
 	try {
 		//Fetch client
 		const client = await Client.findById(_id)
-		return res.status(200).json(client)
+		const lawyer = await Lawyer.findById(_id)
+		
+		return res.status(200).json(client || lawyer)
 	} catch (error) {
 
 	}
