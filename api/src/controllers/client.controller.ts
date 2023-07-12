@@ -2,7 +2,7 @@ import { Request,Response } from "express";
 import { deleteImage, uploadImage } from "../libs/cloudinary";
 import fs from 'fs-extra'
 import Client from '../models/Client'
-import Lawyer from "models/Lawyer";
+import Lawyer from "../models/Lawyer";
 
 export const getClients = async (req: Request,res: Response) => {
 	const { name } = req.query;
