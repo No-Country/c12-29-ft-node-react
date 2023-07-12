@@ -1,22 +1,24 @@
-import { Box, Button, Container, TextField, Grid, Typography } from '@mui/material'
+import { Box, Button, Container, TextField, Grid, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import Navbar from '../../components/Navbar'
 import './styles.login.css'
-/* import loginImg from '../../../public/back2 1(1).jpg' */
-
+import loginImg from '../../assets/login.jpg'
+import { useGetUserMutation } from '../../redux/userReducer'
 const Login = () => {
   const navigate = useNavigate()
-
+	const [getUser]= useGetUserMutation()
   const [user, setUser] = useState({
     email: '',
-    password: ''
+    password: '',
+		userType: ''
   })
 
   const [errors, setErrors] = useState({
     email: false,
     password: false
+		
   })
 
   const [sendPressed, setSendPressed] = useState(false)
@@ -24,18 +26,20 @@ const Login = () => {
   const PASS_REGEX = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,8}$/
   const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ 
 
-  async function handleLogin(e) {
+  async function handleLogin (e) {
     e.preventDefault()
       try {
-        const getToken = await fetch('http://localhost:3001/api/auth/signup?IsClient=true', {
-          method: 'post',
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(user)
-        })
-        const response = await getToken.json()
-        console.log('response: ', response)
+				const response = await getUser()
+				console.log(response);
+        // const getToken = await fetch(`http://localhost:3001/api/auth/signup`, {
+        //   method: 'post',
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(user)
+        // })
+        // const response = await getToken.json()
+        // console.log('response: ', response)
       } catch (error) {
           console.log("ERROR MESSAGE:", error.message)
       }
@@ -59,19 +63,19 @@ const Login = () => {
       ...user,
       [e.target.name]: e.target.value
     })
-    console.log("e: ", e.target.name)
+    //console.log("e: ", e.target.name)
     const emailVal = e.target.name.value
     const testEmail = EMAIL_REGEX.test(emailVal);
-    console.log("testEmail: ", testEmail)
+    //console.log("testEmail: ", testEmail)
     if (e.target.name === 'email' && !EMAIL_REGEX.test(e.target.value)) {
-			console.log("en setError");
+			//console.log("en setError");
       setErrors({ ...errors, [e.target.name]: true })
 		} else {
-      console.log("else!!")
+      //console.log("else!!")
       setErrors({ ...errors, [e.target.name]: false })
     }
   }
-  console.log("ERRORS: ", errors)
+  //console.log("ERRORS: ", errors)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -84,13 +88,13 @@ const Login = () => {
       console.log("En setErrors 2")
     }
 
-    console.log("e.target[0].value: ",e.target[0].value, "  name: ", e.target[0].name)
-    console.log("e.target[2].value: ",e.target[2].value, "  name: ", e.target[2].name)
+    //console.log("e.target[0].value: ",e.target[0].value, "  name: ", e.target[0].name)
+    //console.log("e.target[2].value: ",e.target[2].value, "  name: ", e.target[2].name)
     if ( e.target[0].value !==''  && e.target[2].value !== '' ) {
       handleLogin(e)
     } else console.log("NO ENTRA A handleLogin")
   }
-  console.log("ERRORS despues: ", errors)
+  //console.log("ERRORS despues: ", errors)
 
   /* const handleLogin = (event) => {
     event.preventDefault()
@@ -130,7 +134,6 @@ const Login = () => {
             <Typography sx={{ visibility: 'hidden' }} >Debe ingresar un email válido</Typography>
           }
           <TextField
-            /* variant="outlined" */
             name='password'
             value={user.password}
             onChange={handleChange}
@@ -142,18 +145,36 @@ const Login = () => {
                 color: 'white', opacity:0.7
               }
             }}
-            /* className='loginTextField' */
           />
           { (errors.password && sendPressed)? 
             <Typography sx={{ color: 'red', visibility: 'visible' }} >password incorrecto</Typography>
             :
             <Typography sx={{ visibility: 'hidden' }} >password incorrecto</Typography>
           }
+                 <FormControl sx={{ width:'80%', margin:'3% 0% 3% 0%'}} >
+                    <InputLabel id="demo-simple-select-label">Profesion</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={user.userType}
+                        label="Profesion"
+                        onChange={handleChange}
+                        name='userType'
+                        >
+                        <MenuItem value='abogado'>Abogado</MenuItem>
+                        <MenuItem value='cliente'>Cliente</MenuItem>
+                    </Select>
+                </FormControl>
           <Button type="submit" variant="contained" sx={{ margin: '3em 0 0em 0' , color: 'black', background: '#FAFF00', '&:hover' : {background: '#FAFF00'}}}>login</Button>
+          <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '1em', justifyContent: 'center'}}> 
+            <Typography>¿No tienes una cuenta?</Typography>
+            <Button><Link to={'/signup'}>Registrarse</Link></Button>
+          </Box>
         </Grid>
-        <Grid className='loginImg' item xs={12} sm={7} >
-          <img src="./portadaLogin.jpg" alt="imagen de fcultad de derecho" width={'100%'} />
+        <Grid className='loginBoxImg' item xs={12} sm={7} >
+          <img src={loginImg} alt="imagen de fcultad de derecho" width={'100%'} style={{ filter: 'brightness(40%)'}}  />
         </Grid>
+ 
       </Grid>
     </Container>
   )

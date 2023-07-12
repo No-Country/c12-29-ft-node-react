@@ -16,7 +16,7 @@ const SignUp = () => {
         password:'',
         confirmpassword:'',
         license:'',
-        usertype:''
+        userType:''
     });
 
     const [error, setError] = useState({
@@ -26,7 +26,7 @@ const SignUp = () => {
         password:'',
         confirmpassword:'',
         license:'',
-        usertype:''
+        userType:''
     })
 
     const [disabled, setDisabled]= useState(false);
@@ -77,9 +77,15 @@ const SignUp = () => {
         disabled !== isDisabled && setDisabled(isDisabled);
     },[input, error])
 
-    const handleRegister = (e) => {
+     const handleRegister = async (e) => {
         e.preventDefault();
-        input.lastname && input.confirmpassword && input.password && input.email && input.license && input.firstname && input.usertype && !error.lastname && !error.confirmpassword && !error.password && !error.email && !error.license && !error.firstname && !error.usertype ? addUser(input) : console.log('faltan datos', input)
+        // input.lastname && input.confirmpassword && input.password && input.email && input.license && input.firstname && input.userType && !error.lastname && !error.confirmpassword && !error.password && !error.email && !error.license && !error.firstname && !error.userType ? addUser(input) : console.log('faltan datos', input)
+        try {
+            await addUser(input);
+            console.log('registro existoso', input)
+        } catch (error) {
+            console.log('error', error)
+        }
     }
 
   return (
@@ -170,11 +176,10 @@ const SignUp = () => {
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={input.usertype}
+                        value={input.userType}
                         label="Profesion"
                         onChange={handleChange}
-                        name='usertype'
-                        
+                        name='userType'
                         >
                         <MenuItem value='abogado'>Abogado</MenuItem>
                         <MenuItem value='cliente'>Cliente</MenuItem>
