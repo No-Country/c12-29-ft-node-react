@@ -6,8 +6,18 @@ import Contact from './pages/Home/contact/Contact'
 import './css/normalize.css'
 import SignUp from './pages/SignUp/SignUp'
 import { createTheme, ThemeProvider } from '@mui/material'
+import { useGetUserByIdQuery } from './redux/userReducer'
 
 const App = () => {
+
+  const user = localStorage.getItem('usuario');
+  let userParse = JSON.parse(user);
+
+  if(userParse){
+    const { data, isLoading, error } = useGetUserByIdQuery(userParse._id);
+  }
+
+
   const theme = createTheme({
     typography: {
       fontFamily: [
