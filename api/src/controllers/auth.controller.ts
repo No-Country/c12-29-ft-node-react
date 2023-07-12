@@ -40,10 +40,8 @@ export const signin = async (req: Request,res: Response) => {
 		if (!validation) throw new Error('Contraseña incorrecta')
 		//token
 		const token = jwt.sign({ _id: user._id },JWT_SECRET || 'Secret')
-		//password removed
-		const { hashedPassword, ...userWithoutPass } = user;
 
-		return res.header('token',token).status(200).json(userWithoutPass)
+		return res.header('token',token).status(200).json({user, token})
 	} catch (error: any) {
 		res.status(400).json(error.message)
 	}
