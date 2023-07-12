@@ -7,10 +7,10 @@ export const userApi = createApi({
     baseQuery:fetchBaseQuery({baseUrl:'http://localhost:3001/'}),
     endpoints:(builder) => ({
         addUser: builder.mutation({
-            query: (input) => ({
+            query: (payload) => ({
                 url:'api/auth/signup',
                 method:'POST',
-                body:input
+                body:payload
             })
         })
     })
