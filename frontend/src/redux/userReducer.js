@@ -19,7 +19,7 @@ export const userApi = createApi({
       }),
     }),
     getUserById: builder.query({
-      query: ({ _id }) => `api/client/${_id}`,
+      query: ( _id ) => `api/clients/${_id}`,
     }),
   }),
 });
