@@ -27,14 +27,15 @@ const Login = () => {
   const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ 
 
   async function handleLogin (e) {
-    e.preventDefault()
+    e.preventDefault();
       try {
 				const { data } = await getUser(user);
         localStorage.setItem('token', data.token);
+        localStorage.setItem('usuario', JSON.stringify(data.user));
       } catch (error) {
           console.log("ERROR MESSAGE:", error.message);
       }
-  }
+  };
 
   const handleChange = (e) => {
     setUser({
@@ -48,7 +49,7 @@ const Login = () => {
 		} else {
       setErrors({ ...errors, [e.target.name]: false })
     }
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -63,7 +64,7 @@ const Login = () => {
     if ( e.target[0].value !==''  && e.target[2].value !== '' ) {
       handleLogin(e)
     } else console.log("NO ENTRA A handleLogin")
-  }
+  };
 
   /* const handleLogin = (event) => {
     event.preventDefault()
