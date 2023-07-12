@@ -29,17 +29,8 @@ const Login = () => {
   async function handleLogin (e) {
     e.preventDefault()
       try {
-				const response = await getUser()
+				const response = await getUser(user);
 				console.log(response);
-        // const getToken = await fetch(`http://localhost:3001/api/auth/signup`, {
-        //   method: 'post',
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(user)
-        // })
-        // const response = await getToken.json()
-        // console.log('response: ', response)
       } catch (error) {
           console.log("ERROR MESSAGE:", error.message)
       }
