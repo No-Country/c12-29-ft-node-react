@@ -30,10 +30,10 @@ const Login = () => {
   async function handleLogin (e) {
     e.preventDefault()
       try {
-				const response = await getUser(user);
-				console.log(response);
+				const { data } = await getUser(user);
+        localStorage.setItem('token', data.token);
       } catch (error) {
-          console.log("ERROR MESSAGE:", error.message)
+          console.log("ERROR MESSAGE:", error.message);
       }
   }
 
@@ -61,7 +61,6 @@ const Login = () => {
       setErrors( errors => ({ ...errors, password: true}) )
       console.log("En setErrors 2")
     }
-
     if ( e.target[0].value !==''  && e.target[2].value !== '' ) {
       handleLogin(e)
     } else console.log("NO ENTRA A handleLogin")

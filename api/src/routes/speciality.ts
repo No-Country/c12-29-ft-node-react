@@ -7,3 +7,5 @@ router.get('/', getSpecialities)
 router.post('/', createSpeciality)
 router.put('/', updateSpeciality)
 router.delete('/', deleteSpeciality)
+
+export default router
