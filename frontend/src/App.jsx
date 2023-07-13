@@ -9,14 +9,12 @@ import { createTheme, ThemeProvider } from '@mui/material'
 import { useGetUserByIdQuery } from './redux/userReducer'
 
 const App = () => {
+  const user = localStorage.getItem('usuario')
+  const userParse = JSON.parse(user)
 
-  const user = localStorage.getItem('usuario');
-  let userParse = JSON.parse(user);
-
-  if(userParse){
-    const { data, isLoading, error } = useGetUserByIdQuery(userParse._id);
+  if (userParse) {
+    const { data, isLoading, error } = useGetUserByIdQuery(userParse._id)
   }
-
 
   const theme = createTheme({
     typography: {
