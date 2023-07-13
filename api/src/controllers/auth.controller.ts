@@ -33,7 +33,7 @@ export const signin = async (req: Request,res: Response) => {
 
 	try {
 		//find user
-		const user = isClient? await Client.findOne({ email }): await Lawyer.findOne({ email }) 
+		const user = isClient? await Client.findOne({ email }).lean(): await Lawyer.findOne({ email }).lean() 
 		if (!user) throw new Error('Usuario o contraseña incorrecta')
 		//password validation
 		const validation = await validatePassword(password,user.hashedPassword)
@@ -41,7 +41,9 @@ export const signin = async (req: Request,res: Response) => {
 		//token
 		const token = jwt.sign({ _id: user._id },JWT_SECRET || 'Secret')
 
-		return res.header('token',token).status(200).json({user, token})
+		const {hashedPassword, ...userWithoutPass} = user
+		
+		return res.header('token',token).status(200).json({user: userWithoutPass, token})
 	} catch (error: any) {
 		res.status(400).json(error.message)
 	}
