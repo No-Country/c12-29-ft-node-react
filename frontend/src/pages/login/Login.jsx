@@ -80,34 +80,19 @@ const Login = () => {
   } */
 
   return (
-<<<<<<< HEAD
     <Container maxWidth='false' sx={{px: {xs:0}, background: '#494949', fontFamily: 'koho, sans-serif'}} >
       <Navbar />
       <Grid container sx={{ display: 'flex', flexDirection: 'row', minHeight: '88vh'}} >
         <Grid item xs={12} sm={6} as='form' onSubmit={(e) => handleSubmit(e)} sx={{color: 'white', display: 'flex', flexDirection:'column', padding: '5em 15% 0 7%'}}>
-=======
-    <Container maxWidth='false' sx={{ px: { xs: 0 }, background: '#494949' }} >
-      <Navbar />
-      <Grid container sx={{ display: 'flex', flexDirection: 'row', minHeight: '88vh', maxHeight: '100vh' }} >
-        <Grid item xs={12} sm={5} as='form' onSubmit={(e) => handleSubmit(e)} sx={{ color: 'white', display: 'flex', flexDirection: 'column', padding: '5em 5em 0 5em' }}>
->>>>>>> developer
           <TextField
             name='email'
             value={user.email}
             onChange={(e) => handleChange(e)}
-<<<<<<< HEAD
             placeholder="email..." 
             sx={{ 
               input: {color: '#FFFFFF' }, 
               border: '1px solid white', 
               borderRadius: '4px',
-=======
-            /* type="email"  */
-            placeholder="email..."
-            sx={{
-              input: { color: '#FFFFFF' },
-              border: '1px solid white',
->>>>>>> developer
               '& input::placeholder': {
                 color: 'white', opacity: 0.7
               }
@@ -123,7 +108,6 @@ const Login = () => {
             name='password'
             value={user.password}
             onChange={handleChange}
-<<<<<<< HEAD
             type="password" 
             placeholder="password..." 
             sx={{  
@@ -134,16 +118,6 @@ const Login = () => {
               borderRadius: '4px',
               '& input::placeholder': {
                 color: 'white', opacity:0.7, border: '1px solid white'
-=======
-            type="password"
-            placeholder="password..."
-            sx={{
-              margin: '3em 0 0em 0',
-              input: { color: '#FFFFFF', border: '1px solid white' },
-              border: '1px solid white',
-              '& input::placeholder': {
-                color: 'white', opacity: 0.7
->>>>>>> developer
               }
             }}
           />
@@ -151,7 +125,6 @@ const Login = () => {
             ? <Typography sx={{ color: 'red', visibility: 'visible' }} >password incorrecto</Typography>
             : <Typography sx={{ visibility: 'hidden' }} >password incorrecto</Typography>
           }
-<<<<<<< HEAD
             <FormControl sx={{ margin:'3em 0 0 0', border: ' 1px solid white', borderRadius: '4px', width: '100%'}} >
               <InputLabel id="demo-simple-select-label" sx={{ color: 'white'}}>profesion</InputLabel>
               <Select
@@ -175,32 +148,6 @@ const Login = () => {
         <Grid className='loginBoxImg' item xs={12} sm={6} >
           <img src={loginImg} alt="imagen de fcultad de derecho" width={'100%'} style={{ filter: 'brightness(40%)'}}  />
         </Grid>
-=======
-                 <FormControl sx={{ width: '80%', margin: '3% 0% 3% 0%' }} >
-                    <InputLabel id="demo-simple-select-label">Profesion</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={user.userType}
-                        label="Profesion"
-                        onChange={handleChange}
-                        name='userType'
-                        >
-                        <MenuItem value='abogado'>Abogado</MenuItem>
-                        <MenuItem value='cliente'>Cliente</MenuItem>
-                    </Select>
-                </FormControl>
-          <Button type="submit" variant="contained" sx={{ margin: '3em 0 0em 0', color: 'black', background: '#FAFF00', '&:hover': { background: '#FAFF00' } }}>login</Button>
-          <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '1em', justifyContent: 'center' }}>
-            <Typography>¿No tienes una cuenta?</Typography>
-            <Button><Link to={'/signup'}>Registrarse</Link></Button>
-          </Box>
-        </Grid>
-        <Grid className='loginBoxImg' maxHeight='100vh' item xs={12} sm={7} >
-          <img src={loginImg} alt="imagen de fcultad de derecho" height={'100%'} width={'100%'} style={{ filter: 'brightness(40%)' }} />
-        </Grid>
-
->>>>>>> developer
       </Grid>
     </Container>
   )
