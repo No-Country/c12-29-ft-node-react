@@ -9,7 +9,7 @@ const Navbar = (props) => {
   return (
     <Box sx={{ width: 1 }}>
       <AppBar position="static" color='transparent'>
-        <Toolbar sx={{ pt: 1, pb: 1, display: 'flex' }}>
+        <Toolbar sx={{ pt: 1, pb: 1, display: 'flex', '& .css-kt3xso-MuiToolbar-root': { minHeight: {sm: '56px'}} }}>
           <Typography variant="h6" color="common.white" component="div" sx={{ flexGrow: 1 }}>
             LegalTech
           </Typography>
