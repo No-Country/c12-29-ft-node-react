@@ -8,8 +8,10 @@ import loginImg from '../../assets/login.jpg'
 import { useGetUserMutation } from '../../redux/userReducer'
 
 const Login = () => {
+
+  const [show, setShow] = useState(true)
   const navigate = useNavigate()
-  const [getUser] = useGetUserMutation()
+  const [getUser] = useGetUserMutation('userData')
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -36,6 +38,7 @@ const Login = () => {
       navigate('/')
     } catch (error) {
       console.log('ERROR MESSAGE:', error.message)
+      handleError()
     }
   };
 
@@ -68,16 +71,21 @@ const Login = () => {
     } else console.log('NO ENTRA A handleLogin')
   }
 
-  /* const handleLogin = (event) => {
-    event.preventDefault()
+  const handleError = () => {
+
     Swal.fire({
-      title: 'Login Sucess',
-      icon: 'success',
-      denyButtonText: 'ok'
-    }).then(() => {
+      title: 'Error en logeo, verifique su red o tipo de usuario',
+      icon: 'error',
+      denyButtonText: 'cerrar',
+      timer: 3000
+    })/* .then(() => {
       navigate('/')
-    })
-  } */
+    }) */
+  }
+
+  const handleChangeLabelDisplay = () => {
+
+  }
 
   return (
     <Container maxWidth='false' sx={{px: {xs:0}, background: '#494949', fontFamily: 'koho, sans-serif'}} >
@@ -99,6 +107,7 @@ const Login = () => {
             }}
             variant="outlined"
             true={'false'}
+            autoComplete='true'
           />
           { (errors.email && sendPressed)
             ? <Typography sx={{ color: 'red', visibility: 'visible' }} >Debe ingresar un email válido</Typography>
@@ -114,10 +123,9 @@ const Login = () => {
               margin: '3em 0 0em 0', 
               border: '1px solid white',
               input: {color: '#FFFFFF'}, 
-              border: '1px solid white', 
               borderRadius: '4px',
               '& input::placeholder': {
-                color: 'white', opacity:0.7, border: '1px solid white'
+                color: 'white', opacity:0.7, 
               }
             }}
           />
@@ -126,15 +134,18 @@ const Login = () => {
             : <Typography sx={{ visibility: 'hidden' }} >password incorrecto</Typography>
           }
             <FormControl sx={{ margin:'3em 0 0 0', border: ' 1px solid white', borderRadius: '4px', width: '100%'}} >
-              <InputLabel id="demo-simple-select-label" sx={{ color: 'white'}}>profesion</InputLabel>
+              <InputLabel  id="demo-simple-select-label" sx={{ color: 'white'}}>profesion</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={user.userType}
                 label="Profesion"
                 onChange={handleChange}
+                onSelect={handleChangeLabelDisplay}
                 name='userType'
-                >
+                sx={{color: 'white', '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon': {color: 'white'} }}
+                required
+              >
                 <MenuItem value='abogado'>Abogado</MenuItem>
                 <MenuItem value='cliente'>Cliente</MenuItem>
               </Select>

@@ -20,11 +20,14 @@ export const userApi = createApi({
     }),
     getUserById: builder.query({
       query: (_id) => `api/clients/${_id}`
+    }),
+    getLawyers: builder.query({
+      query: () => 'api/lawyers'
     })
   })
 })
 
 export const selectUser = (state) => state.userApi
 
-export const { useAddUserMutation, useGetUserMutation, useGetUserByIdQuery } =
+export const { useAddUserMutation, useGetUserMutation, useGetUserByIdQuery, useGetLawyersQuery } =
   userApi
