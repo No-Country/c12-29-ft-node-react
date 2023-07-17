@@ -9,6 +9,7 @@ const LawyerPabel = () => {
   const navigate = useNavigate()
   const dataInLocalStorage = localStorage.getItem('usuario')
   const userCredentials = dataInLocalStorage? JSON.parse(dataInLocalStorage).accountType : null
+  console.log("userType: ", userCredentials)
   useEffect( () => {
     if(!userCredentials) {
       navigate('/')

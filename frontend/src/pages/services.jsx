@@ -16,7 +16,7 @@ const Services = () => {
   const [getUser, {data:userId}] = useGetUserMutation('userData') // undefined, para que  funcione se tiene que ejecutar getUser
   const dataInLocalStorage = localStorage.getItem('usuario')
   const userCredentials = dataInLocalStorage? JSON.parse(dataInLocalStorage).accountType : null
-
+  console.log("userType: ", userCredentials)
   useEffect( () => {
     if(!userCredentials) {
       navigate('/')
