@@ -8,7 +8,7 @@ const LawyerPabel = () => {
 
   const navigate = useNavigate()
   const dataInLocalStorage = localStorage.getItem('usuario')
-  const userCredentials = dataInLocalStorage? JSON.parse(dataInLocalStorage).accountType : null
+  const userCredentials = dataInLocalStorage? JSON.parse(dataInLocalStorage).user.accountType : null
   console.log("userType: ", userCredentials)
   useEffect( () => {
     if(!userCredentials) {
@@ -23,7 +23,7 @@ const LawyerPabel = () => {
       <Box sx={{position: 'relative', zIndex: '0', background: 'black', backgroundImage: `Url(${servicesBg})`, backgroundRepeat:"repeat", backgroundSize: 'cover', minHeight: '100vh'}} >
         <Box sx={{zIndex: '1', color: 'white'}}>
         <Navbar sx={{width: '100%'}}  />
-        <Typography variant="h1" sx={{ fontSize: '1.5em',  margin: '2rem 0 0 2rem'}} >Panel de usuario</Typography>
+        <Typography variant="h1" sx={{ fontSize: '1.5em',  margin: '2rem 0 0 2rem'}} >Panel de usuario agogado</Typography>
         <Grid container sx={{marginTop: '3em', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'start', alignItems: 'center', px: '5%'}}>
           <Typography> aun no tienes actividades</Typography>
         </Grid>

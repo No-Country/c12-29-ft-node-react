@@ -5,20 +5,20 @@ import NavBar from '../components/Navbar'
 import ServicesCard from '../components/ServicesCard'
 /* import { useGetUserByIdQuery } from '../redux/userReducer' */
 import { useGetLawyersQuery } from '../redux/userReducer'
-import { useGetUserMutation } from '../redux/userReducer'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-const Services = () => {
+const ClientServices = () => {
 
   const {data, isLoading, isSuccess, isError} = useGetLawyersQuery()
-  /* console.log(data?.length) */
   const navigate = useNavigate()
-  const [getUser, {data:userId}] = useGetUserMutation('userData') // undefined, para que  funcione se tiene que ejecutar getUser
   const dataInLocalStorage = localStorage.getItem('usuario')
-  const userCredentials = dataInLocalStorage? JSON.parse(dataInLocalStorage).accountType : null
-  console.log("userType: ", userCredentials)
+  const userCredentials = dataInLocalStorage? JSON.parse(dataInLocalStorage) : null
+  if (userCredentials) console.log("userType: ", userCredentials)
+  // NOTA: se puede chequear credencales del localStorage, o de redux, pero si no se sincroniza el estado inicial de redux con el LS, cuando se entra a la app por una vista que no es el home, puedehaber error
   useEffect( () => {
     if(!userCredentials) {
+      console.log("EN UseEffect")
       navigate('/')
     }
   },[])
@@ -49,4 +49,4 @@ const Services = () => {
   )
 }
 
-export default Services
+export default ClientServices
