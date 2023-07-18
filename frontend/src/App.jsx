@@ -1,26 +1,39 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Login from './pages/login/Login'
-import AboutServices from './pages/Home/AboutServices'
 import Contact from './pages/Home/contact/Contact'
 import './css/normalize.css'
 import SignUp from './pages/SignUp/SignUp'
 import { createTheme, ThemeProvider } from '@mui/material'
 import { useGetUserByIdQuery } from './redux/userReducer'
-import { useGetLawyersQuery } from './redux/userReducer'
-import { useGetUserMutation } from './redux/userReducer'
-import Services from './pages/services'
+import ClientServices from './pages/ClientServices'
 import LawyerPanel from './pages/LawyerPanel'
+import { saveUser } from './redux/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 const App = () => {
   const user = localStorage.getItem('usuario')
   const userParse = JSON.parse(user)
   const userCredential = userParse?.accountType
-  console.log("UC EN APP: ", userCredential)
+  const dispatch = useDispatch()
+  const userAccountType = useSelector( (state) => state.user.accountType)
+  const userToken = useSelector( state => state.user.token)
+  const navigate = useNavigate()
+  console.log("userAccountType", userAccountType)
+  
+   /*  if (userParse) {
+      const { data, isLoading, error } = useGetUserByIdQuery(userParse._id)
+      // console.log("data de useQuery en APP", data)  undefines, tiene scope de bloque
+      // Lo reemplazo con un slice para el user, en principio toma manualmente el estado del LS,
+      // con tiempo se puede conectar un middleware que tome el estado inicial del LS
+    }  */
+    
   if (userParse) {
-    const { data, isLoading, error } = useGetUserByIdQuery(userParse._id)
+    dispatch(saveUser({token:userParse?.token, accountType:userParse?.user.accountType}))
   }
-
+  
+  console.log("userAccountType en APP : ", userAccountType)
+  console.log("token en APP: ", userToken)
   const theme = createTheme({
     typography: {
       fontFamily: [
@@ -29,8 +42,16 @@ const App = () => {
     }
   })
 
-  return (
+  const Services = () => {
+        if (userAccountType === 'Client') return <ClientServices /> 
+        if (userAccountType === 'Lawyer') {
+          return <LawyerPanel /> 
+        } else { navigate('/')} 
+        // sin el else, un usuario no logeado que intente entrar, le queda pantalla en blanco
+  }
+  
 
+  return (
     <>
       <ThemeProvider theme={theme}>
         <Routes>
@@ -38,8 +59,9 @@ const App = () => {
             <Route path='/login' element={<Login />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/signup' element={<SignUp />} />
-            <Route path='/services' element={  (userCredential==='Client')? <Services /> : <Navigate replace to={'/lawyerpanel'} /> } /> 
-            <Route path='/lawyerpanel' element={<LawyerPanel />} />
+            <Route path='/services' element={ <Services />} /> 
+            {/* <Route path='/services' element={  (userCredential==='Client')? <Services /> : <Navigate replace to={'/lawyerpanel'} /> } /> 
+            <Route path='/lawyerpanel' element={<LawyerPanel />} /> */}
             <Route path='/*' element={<Home />} />
         </Routes>
       </ThemeProvider>

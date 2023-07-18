@@ -6,6 +6,8 @@ import Navbar from '../../components/Navbar'
 import './styles.login.css'
 import loginImg from '../../assets/login.jpg'
 import { useGetUserMutation } from '../../redux/userReducer'
+import { saveUser } from '../../redux/userSlice'
+import { useDispatch } from 'react-redux'
 
 const Login = () => {
 
@@ -17,14 +19,13 @@ const Login = () => {
     password: '',
     userType: ''
   })
-
   const [errors, setErrors] = useState({
     email: false,
     password: false
 
   })
-
   const [sendPressed, setSendPressed] = useState(false)
+  const dispatch = useDispatch()
 
   const PASS_REGEX = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,8}$/
   const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -33,8 +34,10 @@ const Login = () => {
     e.preventDefault()
     try {
       const { data } = await getUser(user)
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('usuario', JSON.stringify(data.user))
+      const userData = {user: data.user, token: data.token }
+      console.log("userData: ", userData)
+      localStorage.setItem('usuario', JSON.stringify(userData))
+      dispatch(saveUser({token: data.token, accountType:data.user.accountType}))
       navigate('/')
     } catch (error) {
       console.log('ERROR MESSAGE:', error.message)
@@ -72,19 +75,12 @@ const Login = () => {
   }
 
   const handleError = () => {
-
     Swal.fire({
       title: 'Error en logeo, verifique su red o tipo de usuario',
       icon: 'error',
       denyButtonText: 'cerrar',
       timer: 3000
-    })/* .then(() => {
-      navigate('/')
-    }) */
-  }
-
-  const handleChangeLabelDisplay = () => {
-
+    })
   }
 
   return (
@@ -141,7 +137,6 @@ const Login = () => {
                 value={user.userType}
                 label="Profesion"
                 onChange={handleChange}
-                onSelect={handleChangeLabelDisplay}
                 name='userType'
                 sx={{color: 'white', '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon': {color: 'white'} }}
                 required
