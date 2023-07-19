@@ -34,6 +34,7 @@ const Login = () => {
     e.preventDefault()
     try {
       const { data } = await getUser(user)
+      console.log("data",data)
       const userData = {user: data.user, token: data.token }
       console.log("userData: ", userData)
       localStorage.setItem('usuario', JSON.stringify(userData))

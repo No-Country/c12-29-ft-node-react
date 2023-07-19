@@ -10,6 +10,7 @@ import ClientServices from './pages/ClientServices'
 import LawyerPanel from './pages/LawyerPanel'
 import { saveUser } from './redux/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 const App = () => {
   const user = localStorage.getItem('usuario')
@@ -29,7 +30,7 @@ const App = () => {
     }  */
     
   if (userParse) {
-    dispatch(saveUser({token:userParse?.token, accountType:userParse?.user.accountType}))
+    dispatch(saveUser({token:userParse?.token, accountType:userParse?.user?.accountType}))
   }
   
   console.log("userAccountType en APP : ", userAccountType)
@@ -50,6 +51,13 @@ const App = () => {
         // sin el else, un usuario no logeado que intente entrar, le queda pantalla en blanco
   }
   
+/* useEffect( () => {
+  fetch('https://c12-29-ft-node-react.onrender.com/api/clients')
+  .then(res => res.json())
+  .then( data => { console.log("data en getclients: ", data)
+  })
+  .catch( error => console.log(error.message))
+}) */
 
   return (
     <>

@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar"
 import { useEffect } from "react"
 import servicesBg from '../assets/servicesBack.jpg'
 import { useNavigate } from 'react-router-dom'
+import ImgUploader from "../components/ImgUploader"
 
 const LawyerPabel = () => {
 
@@ -28,6 +29,7 @@ const LawyerPabel = () => {
           <Typography> aun no tienes actividades</Typography>
         </Grid>
         </Box>
+        <ImgUploader />
       </Box>
       :
       null
