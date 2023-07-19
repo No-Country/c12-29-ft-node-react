@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 const Home = () => {
   const dataInLocalStorage = localStorage.getItem('usuario')
-  const userCredentials = dataInLocalStorage ? JSON.parse(dataInLocalStorage).accountType : null
+  const userCredentials = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : null
   return (
     <>
       <Box as='section' className="boxPrincipalImg" >
