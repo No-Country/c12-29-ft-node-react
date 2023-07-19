@@ -8,7 +8,6 @@ import loginImg from '../../assets/login.jpg'
 import { useGetUserMutation } from '../../redux/userReducer'
 
 const Login = () => {
-
   const [show, setShow] = useState(true)
   const navigate = useNavigate()
   const [getUser] = useGetUserMutation('userData')
@@ -72,7 +71,6 @@ const Login = () => {
   }
 
   const handleError = () => {
-
     Swal.fire({
       title: 'Error en logeo, verifique su red o tipo de usuario',
       icon: 'error',
@@ -88,18 +86,19 @@ const Login = () => {
   }
 
   return (
-    <Container maxWidth='false' sx={{px: {xs:0}, background: '#494949', fontFamily: 'koho, sans-serif'}} >
+    <Container maxWidth='false' sx={{ px: { xs: 0 }, background: '#494949', fontFamily: 'koho, sans-serif' }} >
       <Navbar />
-      <Grid container sx={{ display: 'flex', flexDirection: 'row', minHeight: '88vh'}} >
-        <Grid item xs={12} sm={6} as='form' onSubmit={(e) => handleSubmit(e)} sx={{color: 'white', display: 'flex', flexDirection:'column', padding: '5em 15% 0 7%'}}>
+      <Grid container sx={{ display: 'flex', flexDirection: 'row', minHeight: '88vh' }} >
+        <Grid item xs={12} sm={6} as='form' onSubmit={(e) => handleSubmit(e)} sx={{ color: 'white', display: 'flex', flexDirection: 'column', padding: '5em 15% 0 7%' }}>
           <TextField
             name='email'
             value={user.email}
             onChange={(e) => handleChange(e)}
-            placeholder="email..." 
-            sx={{ 
-              input: {color: '#FFFFFF' }, 
-              border: '1px solid white', 
+            placeholder="email..."
+            focused={false}
+            sx={{
+              input: { color: '#FFFFFF' },
+              border: '1px solid white',
               borderRadius: '4px',
               '& input::placeholder': {
                 color: 'white', opacity: 0.7
@@ -117,15 +116,16 @@ const Login = () => {
             name='password'
             value={user.password}
             onChange={handleChange}
-            type="password" 
-            placeholder="password..." 
-            sx={{  
-              margin: '3em 0 0em 0', 
+            type="password"
+            placeholder="password..."
+            focused={false}
+            sx={{
+              margin: '3em 0 0em 0',
               border: '1px solid white',
-              input: {color: '#FFFFFF'}, 
+              input: { color: '#FFFFFF' },
               borderRadius: '4px',
               '& input::placeholder': {
-                color: 'white', opacity:0.7, 
+                color: 'white', opacity: 0.7
               }
             }}
           />
@@ -133,8 +133,8 @@ const Login = () => {
             ? <Typography sx={{ color: 'red', visibility: 'visible' }} >password incorrecto</Typography>
             : <Typography sx={{ visibility: 'hidden' }} >password incorrecto</Typography>
           }
-            <FormControl sx={{ margin:'3em 0 0 0', border: ' 1px solid white', borderRadius: '4px', width: '100%'}} >
-              <InputLabel  id="demo-simple-select-label" sx={{ color: 'white'}}>profesion</InputLabel>
+            <FormControl focused={false} sx={{ margin: '3em 0 0 0', border: ' 1px solid white', borderRadius: '4px', width: '100%', '& .MuiInputLabel-shrink': { transform: 'translate(14px, -20px) scale(0.75)' } }} >
+              <InputLabel id="demo-simple-select-label" sx={{ color: 'white' }}>profesion</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -143,21 +143,21 @@ const Login = () => {
                 onChange={handleChange}
                 onSelect={handleChangeLabelDisplay}
                 name='userType'
-                sx={{color: 'white', '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon': {color: 'white'} }}
+                sx={{ color: 'white', '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon': { color: 'white' } }}
                 required
               >
                 <MenuItem value='abogado'>Abogado</MenuItem>
                 <MenuItem value='cliente'>Cliente</MenuItem>
               </Select>
             </FormControl>
-          <Button type="submit" variant="contained" sx={{ margin: '4em 0 0em 0' , color: 'black', background: '#FAFF00', '&:hover' : {background: '#FAFF00'}}}>login</Button>
-          <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '1em', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap'}}> 
-            <Typography sx={{fontSize: '1.1em'}}>¿No tienes una cuenta?</Typography>
+          <Button type="submit" variant="contained" sx={{ margin: '4em 0 0em 0', color: 'black', background: '#FAFF00', '&:hover': { background: '#FAFF00' } }}>login</Button>
+          <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '1em', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
+            <Typography sx={{ fontSize: '1.1em' }}>¿No tienes una cuenta?</Typography>
             <Link to={'/signup'} className='linkToRegister' /* style={{ fontSize: '1.1em'}} */>Registrarse</Link>
           </Box>
         </Grid>
         <Grid className='loginBoxImg' item xs={12} sm={6} >
-          <img src={loginImg} alt="imagen de fcultad de derecho" width={'100%'} style={{ filter: 'brightness(40%)'}}  />
+          <img src={loginImg} alt="imagen de fcultad de derecho" width={'100%'} style={{ filter: 'brightness(40%)' }} />
         </Grid>
       </Grid>
     </Container>
