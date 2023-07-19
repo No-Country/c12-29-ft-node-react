@@ -1,5 +1,5 @@
 import { Request,Response } from "express"
-import Speciality from "models/Speciality"
+import Speciality from "../models/Speciality"
 
 export const getSpecialities = async (req: Request,res: Response) => {
 	try {

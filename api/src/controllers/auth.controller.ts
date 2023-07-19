@@ -11,7 +11,8 @@ const { JWT_SECRET } = process.env
 
 export const signup = async (req: Request,res: Response) => {
 	const { password, userType } = req.body
-	const isClient = userType === "cliente" ? true : false 
+	const isClient = userType === "cliente" ? true : false
+
 	try {
 		//saving new user
 		const hashedPassword = await encryptPassword(password)
@@ -27,22 +28,22 @@ export const signup = async (req: Request,res: Response) => {
 }
 
 export const signin = async (req: Request,res: Response) => {
-	const { email,password } = req.body
-	const { isClient } = req.query
+	const { email,password,userType } = req.body
+	const isClient = userType === "cliente" ? true : false
 
 	try {
 		//find user
-		const user = isClient? await Client.findOne({ email }): await Lawyer.findOne({ email }) 
+		const user = isClient? await Client.findOne({ email }).lean(): await Lawyer.findOne({ email }).lean() 
 		if (!user) throw new Error('Usuario o contraseña incorrecta')
 		//password validation
 		const validation = await validatePassword(password,user.hashedPassword)
 		if (!validation) throw new Error('Contraseña incorrecta')
 		//token
 		const token = jwt.sign({ _id: user._id },JWT_SECRET || 'Secret')
-		//password removed
-		const { hashedPassword, ...userWithoutPass } = user;
 
-		return res.header('token',token).status(200).json(userWithoutPass)
+		const {hashedPassword, ...userWithoutPass} = user
+		
+		return res.header('token',token).status(200).json({user: userWithoutPass, token})
 	} catch (error: any) {
 		res.status(400).json(error.message)
 	}

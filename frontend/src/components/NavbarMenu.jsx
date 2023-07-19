@@ -14,7 +14,11 @@ export default function NavbarMenu () {
   const handleClose = () => {
     setAnchorEl(null)
   }
-
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('usuario')
+    window.location.reload()
+  }
   return (
     <div>
       <Button
@@ -25,7 +29,7 @@ export default function NavbarMenu () {
         onClick={handleClick}
         sx={{ pl: 2, pr: 2, fontSize: 16, textTransform: 'none', color: 'white', backgroundColor: 'gray' }}
       >
-        User
+        Usuario
         <ListItemIcon sx={{ justifyContent: 'flex-end' }}>
           <PersonIcon fontSize='small'/>
         </ListItemIcon>
@@ -40,12 +44,12 @@ export default function NavbarMenu () {
         }}
 
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <NavLink to='/'>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-            Logout
+            Cerrar sesión
             </NavLink>
         </MenuItem>
       </Menu>

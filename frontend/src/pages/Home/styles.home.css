@@ -4,8 +4,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  height: 65em;
-  height: auto;
+  height: 100vh;
   color: white;
 }
 
