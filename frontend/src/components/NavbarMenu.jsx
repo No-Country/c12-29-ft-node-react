@@ -1,12 +1,13 @@
 import * as React from 'react'
 import Button from '@mui/material/Button'
 import { Menu, MenuItem, ListItemIcon } from '@mui/material'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import Logout from '@mui/icons-material/Logout'
 import PersonIcon from '@mui/icons-material/Person'
 
 export default function NavbarMenu () {
   const [anchorEl, setAnchorEl] = React.useState(null)
+  const navigate = useNavigate()
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -15,9 +16,10 @@ export default function NavbarMenu () {
     setAnchorEl(null)
   }
   const handleLogout = () => {
-    localStorage.removeItem('token')
+    /* localStorage.removeItem('token') */
     localStorage.removeItem('usuario')
     window.location.reload()
+   navigate('/')
   }
   return (
     <div>

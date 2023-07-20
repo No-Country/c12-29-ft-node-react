@@ -60,7 +60,7 @@ const Contact = () => {
     color: 'white',
     backgroundColor: 'black',
     boxShadow: '0px 4px 4px 0px #00000040',
-    borderRadius: 0,
+    borderRadius: '4px',
     width: '228px',
     height: '45px',
     '&:hover': {
@@ -81,7 +81,7 @@ const Contact = () => {
             <OutlinedInput 
               type="email" 
               name="user_email" 
-              sx={{ borderRadius:0, width:'100%', margin: '2em 0 0em 0', padding: '0.5em'}} 
+              sx={{ borderRadius: '4px', width:'100%', margin: '2em 0 0em 0', padding: '0.5em'}} 
               placeholder='email...'  
               value={email}
               onChange={validateEmail}

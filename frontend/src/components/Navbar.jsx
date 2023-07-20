@@ -11,25 +11,25 @@ const Navbar = (props) => {
 
   if (userParse) {
     userInfo = userParse
-    console.log(userParse)
+    //console.log(userParse)
   }
 
   return (
     <Box sx={{ width: 1 }}>
-      <AppBar position="static" color='transparent'>
-        <Toolbar sx={{ pt: 1, pb: 1, display: 'flex' }}>
+      <AppBar position="static" color='transparent' elevation={1}>
+        <Toolbar sx={{ pt: 1, pb: 1, display: 'flex', '& .css-kt3xso-MuiToolbar-root': { minHeight: {sm: '56px'}} }}>
           <Typography variant="h6" color="common.white" component="div" sx={{ flexGrow: 1 }}>
             LegalTech
           </Typography>
           {userInfo
             ? <Stack direction='row' spacing={5}>
                 <NavLink to='/'><Button sx={buttonStyle} color='inherit'>Home</Button></NavLink>
-                <NavLink to='/aboutServices'><Button sx={buttonStyle} color='inherit'>Servicios</Button></NavLink>
+                <NavLink to='/services'><Button sx={buttonStyle} color='inherit'>Servicios</Button></NavLink>
                 <NavbarMenu />
               </Stack>
             : <Stack direction='row' spacing={5}>
                 <NavLink to='/'><Button sx={buttonStyle} color='inherit'>Home</Button></NavLink>
-                <NavLink to='/aboutServices'><Button sx={buttonStyle} color='inherit'>Servicios</Button></NavLink>
+                <NavLink to='/services'><Button sx={buttonStyle} color='inherit'>Servicios</Button></NavLink>
                 <NavLink to='/login'><Button sx={buttonStyle} color="inherit">Ingresar</Button></NavLink>
               </Stack>
           }
