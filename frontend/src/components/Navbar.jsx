@@ -1,9 +1,8 @@
 import { Stack, Button, Typography, Toolbar, Box, AppBar } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import NavbarMenu from './NavbarMenu'
-import { useGetUserByIdQuery } from '../redux/userReducer'
 
-const Navbar = (props) => {
+const Navbar = () => {
   const buttonStyle = { fontSize: 16, textTransform: 'none', color: 'white' }
   const user = localStorage.getItem('usuario')
   const userParse = JSON.parse(user)
@@ -11,13 +10,12 @@ const Navbar = (props) => {
 
   if (userParse) {
     userInfo = userParse
-    //console.log(userParse)
   }
 
   return (
     <Box sx={{ width: 1 }}>
       <AppBar position="static" color='transparent' elevation={1}>
-        <Toolbar sx={{ pt: 1, pb: 1, display: 'flex', '& .css-kt3xso-MuiToolbar-root': { minHeight: {sm: '56px'}} }}>
+        <Toolbar sx={{ pt: 1, pb: 1, display: 'flex', '& .css-kt3xso-MuiToolbar-root': { minHeight: { sm: '56px' } } }}>
           <Typography variant="h6" color="common.white" component="div" sx={{ flexGrow: 1 }}>
             LegalTech
           </Typography>
