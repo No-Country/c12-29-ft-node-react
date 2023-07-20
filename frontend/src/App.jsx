@@ -21,6 +21,7 @@ const App = () => {
   const userToken = useSelector( state => state.user.token)
   const navigate = useNavigate()
   console.log("userAccountType", userAccountType)
+  console.log("userParse en App: ", userParse)
   
    /*  if (userParse) {
       const { data, isLoading, error } = useGetUserByIdQuery(userParse._id)
@@ -30,7 +31,8 @@ const App = () => {
     }  */
     
   if (userParse) {
-    dispatch(saveUser({token:userParse?.token, accountType:userParse?.user?.accountType}))
+    /* dispatch(saveUser({token:userParse?.token, accountType:userParse?.user?.accountType})) */
+    dispatch(saveUser({token:userParse?.token, accountType:userParse?.user?.accountType, user:userParse?.user}))
   }
   
   console.log("userAccountType en APP : ", userAccountType)

@@ -48,18 +48,38 @@ export const updateLawyerData = async (req: Request,res: Response) => {
 export const updateLawyerImage = async (req: Request, res: Response) => {
 	const {_id} = req.params
 	const {imageId} = req.body
+	/* console.log("req en API: ", req) */
+	/* console.log("req.query en API: ", req.query) */
+	/* console.log("req.params en API: ", req.params) */
+	console.log("req.files en API: ", req.files)
+	console.log("req.body en API: ", req.body)
+	let checker = req.files? true:false
+	const newImgObject = {
+		name : checker
+	}
+	const obj = JSON.parse(JSON.stringify(req.files))
+	console.log("OBJ: ", obj)
+	console.log("OBJ.image,name: ", obj.image.name, "  ", typeof(obj.image.name))
+	console.log("newImgObject: ", newImgObject, "  typeof: ", typeof(newImgObject), )
+	console.log("CHECKER: ", checker)
 	try {
 		if (imageId) {
-			console.log(imageId);
-			
+			console.log("imageId en try: ", imageId)
 			await deleteImage(imageId.toString())
 			const lawyer = await Lawyer.findByIdAndUpdate(_id, {image: {}}, {new: true})
+/* 			console.log("lawyer en API: ", lawyer) */
 			return res.status(200).json(lawyer)
 		}		
 		const file = req.files?.image
 		let image 
 		//upload image
-		if(req.files?.image){
+
+		console.log("file en IF API: ", req.files)
+		/* if(req.files?.image){ */
+		console.log("CHECKER2: ", checker)
+		if(obj.image.name){
+        
+			console.log("file en IF API: ", req.files?.image)//
 			const uploadedFile = Array.isArray(file)
 			? file[0]
 			: file;

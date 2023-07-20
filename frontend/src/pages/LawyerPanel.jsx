@@ -4,18 +4,26 @@ import { useEffect } from "react"
 import servicesBg from '../assets/servicesBack.jpg'
 import { useNavigate } from 'react-router-dom'
 import ImgUploader from "../components/ImgUploader"
+import { useSelector } from "react-redux"
+
 
 const LawyerPabel = () => {
 
   const navigate = useNavigate()
   const dataInLocalStorage = localStorage.getItem('usuario')
   const userCredentials = dataInLocalStorage? JSON.parse(dataInLocalStorage).user.accountType : null
+  const userId = useSelector( state => state.user.user)
+  console.log("userId: ", userId)
   console.log("userType: ", userCredentials)
+
+
   useEffect( () => {
     if(!userCredentials) {
       navigate('/')
     }
   },[])
+
+  
 
   return (
     <>

@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({ baseUrl: /*'https://c12-29-ft-node-react.onrender.com' */ 'http://localhost:3001/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: /* 'https://c12-29-ft-node-react.onrender.com' */ 'http://localhost:3001/' }),
   endpoints: (builder) => ({
     addUser: builder.mutation({
       query: (input) => ({
@@ -23,10 +23,17 @@ export const userApi = createApi({
     }),
     getLawyers: builder.query({
       query: () => 'api/lawyers'
-    })
+    }),
+    /* updateLawyerImage: builder.mutation({
+      query: (dataImg, lawyerId) => ({
+        url: `/api/lawyers/image/${lawyerId}`,
+        method: 'PUT',
+        body: dataImg
+      })
+    })  */ // funciona mal
   })
 })
 
 export const selectUser = (state) => state.userApi
 
-export const { useAddUserMutation, useGetUserMutation, useGetUserByIdQuery, useGetLawyersQuery } = userApi
+export const { useAddUserMutation, useGetUserMutation, useGetUserByIdQuery, useGetLawyersQuery, useUpdateLawyerImageMutation } = userApi
