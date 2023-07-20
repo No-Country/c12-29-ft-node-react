@@ -11,7 +11,7 @@ import LawyerPanel from './pages/LawyerPanel'
 import { saveUser } from './redux/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-
+import Prueba from './pages/prueba/prueba'
 const App = () => {
   const user = localStorage.getItem('usuario')
   const userParse = JSON.parse(user)
@@ -68,6 +68,7 @@ const App = () => {
             <Route path='/contact' element={<Contact />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/services' element={ <Services />} /> 
+            <Route path='/prueba' element={ <Prueba />} /> 
             {/* <Route path='/services' element={  (userCredential==='Client')? <Services /> : <Navigate replace to={'/lawyerpanel'} /> } /> 
             <Route path='/lawyerpanel' element={<LawyerPanel />} /> */}
             <Route path='/*' element={<Home />} />
