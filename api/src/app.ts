@@ -36,12 +36,6 @@ app.use(fileUpload({
 	tempFileDir: path.join(__dirname, 'upload')
 }))
 
-
-app.use(fileUpload({
-	useTempFiles: true,
-	tempFileDir: path.join(__dirname, 'upload')
-}))
-
 // routes
 app.use('/api/auth',authRouter)
 app.use('/api/clients',clientsRouter)
