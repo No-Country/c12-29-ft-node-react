@@ -20,8 +20,6 @@ const App = () => {
   const userAccountType = useSelector( (state) => state.user.accountType)
   const userToken = useSelector( state => state.user.token)
   const navigate = useNavigate()
-  console.log("userAccountType", userAccountType)
-  console.log("userParse en App: ", userParse)
   
    /*  if (userParse) {
       const { data, isLoading, error } = useGetUserByIdQuery(userParse._id)
@@ -35,8 +33,7 @@ const App = () => {
     dispatch(saveUser({token:userParse?.token, accountType:userParse?.user?.accountType, user:userParse?.user}))
   }
   
-  console.log("userAccountType en APP : ", userAccountType)
-  console.log("token en APP: ", userToken)
+
   const theme = createTheme({
     typography: {
       fontFamily: [

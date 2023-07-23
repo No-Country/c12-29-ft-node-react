@@ -14,7 +14,6 @@ const  userSlice = createSlice( {
       state.accountType = action.payload.accountType
       state.token = action.payload.token
       state.user = action.payload.user
-      console.log("payload en userSlice", action.payload)
     }
   }
 })

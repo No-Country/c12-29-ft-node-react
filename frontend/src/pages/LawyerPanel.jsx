@@ -5,6 +5,8 @@ import servicesBg from '../assets/servicesBack.jpg'
 import { useNavigate } from 'react-router-dom'
 import ImgUploader from "../components/ImgUploader"
 import { useSelector } from "react-redux"
+import ImageModal from "../components/ImageModal"
+import { useUpdateLawyerDataMutation } from "../redux/userReducer"
 
 
 const LawyerPabel = () => {
@@ -23,21 +25,26 @@ const LawyerPabel = () => {
     }
   },[])
 
-  
+  const [ updateLawyerData, {data, isSuccess, error, isLoading}] = useUpdateLawyerDataMutation()
 
   return (
     <>
     {
       userCredentials?
-      <Box sx={{position: 'relative', zIndex: '0', background: 'black', backgroundImage: `Url(${servicesBg})`, backgroundRepeat:"repeat", backgroundSize: 'cover', minHeight: '100vh'}} >
+      <Box sx={{position: 'relative', zIndex: '0', backgroundImage: `Url(${servicesBg})`, backgroundRepeat:"repeat", backgroundSize: 'cover', minHeight: '100vh'}} >
         <Box sx={{zIndex: '1', color: 'white'}}>
         <Navbar sx={{width: '100%'}}  />
-        <Typography variant="h1" sx={{ fontSize: '1.5em',  margin: '2rem 0 0 2rem'}} >Panel de usuario agogado</Typography>
+        <Typography 
+          variant="h1" 
+          sx={{ fontSize: '1.5em',  margin: '2rem 0 0 2rem'}} 
+        >
+          Panel de usuario abogado
+        </Typography>
         <Grid container sx={{marginTop: '3em', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'start', alignItems: 'center', px: '5%'}}>
           <Typography> aun no tienes actividades</Typography>
         </Grid>
         </Box>
-        <ImgUploader />
+        <ImageModal />
       </Box>
       :
       null
