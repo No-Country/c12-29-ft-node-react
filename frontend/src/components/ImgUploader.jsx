@@ -5,16 +5,15 @@ import axios from 'axios'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useUpdateLawyerImageMutation } from '../redux/userReducer';
 import Swal from 'sweetalert2';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const ImgUploader = () => {
   const [image, setImage ] = useState("")
   const [ url, setUrl ] = useState("");
-  const [load, setLoad] = useState(false)
   const lawyer = useSelector( state => state.user)
   const lawyerId = useSelector( state => state.user.user._id)
-  const refSuccess = useRef(false)
 
-  const [ updateLawyerImage, { data, error, isSuccess}] = useUpdateLawyerImageMutation({
+  const [ updateLawyerImage, { data, isLoading}] = useUpdateLawyerImageMutation({
     fixedCacheKey: 'image-uploading',
   })
 
@@ -24,18 +23,16 @@ const ImgUploader = () => {
   },[image])
   
  /*  const handleSetImg = (e) => {
-    console.log("e: ", e)
-    const img = e.target.files[0]
     img.id = lawyerId
-    setImage(img)
-    console.log("img ", img)
+    setImage( e.target.files[0])
   } */
   const handleError = () => {
     Swal.fire({
       title: 'Error en la carga',
       icon: 'error',
       denyButtonText: 'cerrar',
-      timer: 3000
+      timer: 3000,
+      width: '400px',
     })
   }
   const handleSucces = () => {
@@ -46,18 +43,6 @@ const ImgUploader = () => {
       timer: 3000
     })
   }
- /*  useEffect(() => {
-    if (isSuccess) {
-      handleSucces()
-      console.log("IS SUCCESS")
-    }
-  },[isSuccess])
-
-  useEffect( () => {
-    if (error) {
-      handleError()
-    }
-  },[error]) */
 
   const uploadImage = (e) => {
     e.preventDefault()
@@ -112,20 +97,15 @@ const ImgUploader = () => {
             lawyerId, 
             formData
           }
-          console.log("loading adentro", load)
           updateLawyerImage(dataquery).unwrap()
-          .then(setLoad(prev => !prev))
           .then( res => {
             console.log(res)  
             handleSucces() 
           })
           .catch( () => handleError())
-          /* .finally( setLoad(false)) */
-          console.log("DATA: ", data)
-          /* return {isLoading, isSuccess, error} */     
+          console.log("DATA: ", data)  
       }
     }
-    console.log("loading afuera", load)
 
 
   return (
@@ -133,9 +113,9 @@ const ImgUploader = () => {
       <div style={{ textAlign: 'center'}}>
         <img src={url} style={{ width: '300px',maxWidth:'80%', height: 'auto', aspectRatio: "1/1", background: 'white' }} />
       </div>
-      <form action="" onSubmit={uploadImage} style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center', px:'30%', marginTop:'1em'}}>
+      <form action="" onSubmit={uploadImage} style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center', px:'30%', marginTop:'1em', width:'100%'}}>
         <InputLabel htmlFor='file' 
-          sx={{ display:'block', width:'200px', maxWidth:'40%', margin:'0 1em 0 0', borderRadius:'4px', boxShadow:'none', '&:hover':{background: '#FAFF00', boxShadow: '2'/* '1px 1px 0px 2px rgba(0,0,0,0.35)' */} }}
+          sx={{ display:'block', width:{xs:'120px', sm:'140px'}, maxWidth:'40%', margin:'0 1em 0 0', borderRadius:'4px', boxShadow:'none', '&:hover':{background: '#FAFF00', boxShadow: '2'/* '1px 1px 0px 2px rgba(0,0,0,0.35)' */} }}
         >
         <Input 
           sx={{ display: "none", width:'99%', borderRadius:'4px', boxShadow:'none', '&:hover':{boxShadow:'none'} }}
@@ -147,14 +127,14 @@ const ImgUploader = () => {
         />
         <Button 
           sx={{
-            width:'100%',
+            width:{xs:'120px', sm:'140px'}, 
             background:'#FAFF00', 
             color:'black', 
             '&:hover':{background: '#FAFF00'},
             '& .Mui-focusVisible':{background:'#FAFF00'},
             textAlign:'center',
-            fontSize:'1.1em',
-            lineHeight:'1.2em',
+            fontSize:'1em',
+            lineHeight:'1.1em',
             padding:'6px 4px 6px 4px',
             borderRadius:'4px'
           }} 
@@ -166,7 +146,7 @@ const ImgUploader = () => {
         </InputLabel>
         <Button 
           sx={{
-            width:'200px',
+            width:{xs:'120px', sm:'140px'}, 
             maxWidth:'40%',
             background:'#FAFF00', 
             color:'black', 
@@ -174,8 +154,8 @@ const ImgUploader = () => {
             '&:hover':{background:'#FAFF00' , boxShadow: '2' },
             '& .Mui-focusVisible':{background:'#FAFF00'},
             textAlign:'center',
-            fontSize:'1.1em',
-            lineHeight:'1.2em',
+            fontSize:'1em',
+            lineHeight:'1.1em',
             padding:'6px 4px 6px 4px',
             margin: '0 0 0 1em',
             boxShadow:'none'
@@ -187,10 +167,10 @@ const ImgUploader = () => {
         </Button>
       </form>
       {
-        load?
-        <Typography sx={{fontSize:'1.5em', color:'green'}}>Cargando...</Typography>
+        isLoading?
+        <LinearProgress sx={{m:'2em 5em 0 5em'}} />
         :
-        null
+        <Typography sx={{visibility:'hidden'}}>ss</Typography>
       }
     </Box>
     )
