@@ -3,16 +3,27 @@ import AboutServices from './AboutServices'
 import Footer from './Footer'
 import Navbar from '../../components/Navbar'
 import Box from '@mui/material/Box'
-import './styles.home.css'
 import { Button, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
+import ImgHome from '../../assets/portadaHome.jpg'
 
 const Home = () => {
   const dataInLocalStorage = localStorage.getItem('usuario')
   const userCredentials = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : null
   return (
     <>
-      <Box as='section' className="boxPrincipalImg" >
+      <Box 
+        as='section' 
+        sx={{ 
+          backgroundImage:`url(${ImgHome})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          width: '100%',
+          height: '125vh',
+          color: 'white',
+          position:'relative',
+          }} 
+      >
         <Navbar isLogged={false}/>
         <Box sx={{ zIndex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '30em' }}>
           <Typography as="h1" sx={{ fontSize: '2em' }}>Abogados</Typography>
