@@ -27,8 +27,8 @@ export default function ImageModal() {
     fixedCacheKey: 'image-uploading',
   })
   useEffect( () => {
-    isSuccess? handleClose() : null
-  },[isSuccess])
+    isSuccess||error? handleClose() : null
+  },[isSuccess, error])
 
   return (
     <Box sx={{ display:'flex', flexDirection:'column', alignItems:'center', my:'3em', borderRadius:'4px'}}>
