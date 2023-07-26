@@ -6,12 +6,68 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import img from '../assets/abogadoImg.jpg'
 import { Box, Grid } from '@mui/material';
-
+import { useSelector } from 'react-redux';
+import { useCreateMeetMutation } from '../redux/userReducer';
+import Swal from 'sweetalert2';
 
 export default function ServicesCard({item}) {
 
+  const clientId = useSelector( state => state.user?.user._id)
+  const userData = useSelector( state => state.user?.user)
+  // console.log("clientId: ", clientId) //client
+  // console.log("userData: ", userData )
+  // console.log('item.id en ServicesCard: ', item._id) // lawyer
+  const [createMeet, {data, isLoading, isSuccess, error, isError}] = useCreateMeetMutation({
+    fixedCacheKey: 'addMeet',
+  })
   const specialitiesList = item.specialities.join(', ')
 
+  const infoSuccess = () => {
+    Swal.fire({
+      title: 'Se agregó la cita' ,
+      icon: 'success',
+      denyButtonText: 'cerrar',
+      timer: 3000,
+      width: '300px'
+    })
+  }
+  const infoError = () => {
+    Swal.fire({
+      title: 'Error, intente nuevamnete',
+      icon: 'error',
+      denyButtonText: 'cerrar',
+      timer: 3000,
+      width: '300px'
+    })
+  }
+
+  const handleContactLawyer = async () => {
+    console.log("EN HANDLE")
+    try {
+      const meet = await createMeet({clientId, clientData:{lawyerId:item._id, date:new Date()}})
+      // console.log("EN TRY")
+      // const clientData = {lawyerId, date:new Date()}  // NO FUNCIONA EL FETCH
+      // console.log("clientData ",clientData)
+      // const URL = `https://c12-29-ft-node-react.onrender.com${clientId}`
+      // console.log("URL")
+      // const createMeet = await fetch(URL, {
+      //   method:'POST',
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: clientData
+      // })
+      // const res = await createMeet.json()
+      // console.log(res)
+    } catch {
+      error => console.log(error.message)
+    }
+    isError? infoError(): null
+    isSuccess? infoSuccess():null
+  }
+/* console.log("DATA: ", data)
+console.log("ERROR: ", error, " isSuccsses: ", isSuccess)
+console.log("isError: ", isError) */
   return (
     <Grid item  xs={12} sm={4}>
       <Card sx={{ /* maxWidth: 345, */ margin: '2em', padding: '1em' }}>
@@ -20,8 +76,9 @@ export default function ServicesCard({item}) {
           alt="foto de abogado"
           height="auto"
           width="100%"
-          /* image={item?.image?.url} */
-          image={img}
+          sx={{width:'100%', aspectRatio:'1/1'}}
+          image={item?.image?.url}
+          /* image={img} */
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -29,13 +86,13 @@ export default function ServicesCard({item}) {
           </Typography>
           <Typography>Especialidades: {specialitiesList} </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+            Excepturi est praesentium doloribus suscipit adipisci, cumque dolores 
+            minima.
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
+          <Button onClick={handleContactLawyer} size="small">Contactar</Button>
         </CardActions>
       </Card>
     </Grid>
