@@ -16,10 +16,10 @@ const Filter = ({ specialty, setSpecialty }) => {
         <MenuItem value="">
           <em>Ninguna</em>
         </MenuItem>
-        <MenuItem value={10}>Civil</MenuItem>
-        <MenuItem value={20}>Familia</MenuItem>
-        <MenuItem value={30}>Penal</MenuItem>
-        <MenuItem value={30}>Laboral</MenuItem>
+        <MenuItem value={'civil'}>Civil</MenuItem>
+        <MenuItem value={'familia'}>Familia</MenuItem>
+        <MenuItem value={'penal'}>Penal</MenuItem>
+        <MenuItem value={'laboral'}>Laboral</MenuItem>
       </Select>
     </FormControl>
   )
