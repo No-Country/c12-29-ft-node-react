@@ -60,17 +60,6 @@ export default function ImageModal () {
         <Fade in={open}>
           <Box sx={style}>
             <ImgUploader />
-            {/* {
-              isLoading?
-              <>
-                <Zoom>
-                <Typography sx={{fontSize:'1.5em', color:'green'}} >Cargando...</Typography>
-
-                </Zoom>
-              </>
-              :
-              null
-            } */}
           </Box>
         </Fade>
       </Modal>

@@ -27,12 +27,13 @@ const App = () => {
       // Lo reemplazo con un slice para el user, en principio toma manualmente el estado del LS,
       // con tiempo se puede conectar un middleware que tome el estado inicial del LS
     }  */
-    
-  if (userParse) {
-    /* dispatch(saveUser({token:userParse?.token, accountType:userParse?.user?.accountType})) */
-    dispatch(saveUser({token:userParse?.token, accountType:userParse?.user?.accountType, user:userParse?.user}))
-  }
-  
+    useEffect( () => {
+      if (userParse) {
+        /* dispatch(saveUser({token:userParse?.token, accountType:userParse?.user?.accountType})) */
+        dispatch(saveUser({token:userParse?.token, accountType:userParse?.user?.accountType, user:userParse?.user}))
+      }
+    },[])
+  console.log("EN APP")
 
   const theme = createTheme({
     typography: {
@@ -50,13 +51,6 @@ const App = () => {
         // sin el else, un usuario no logeado que intente entrar, le queda pantalla en blanco
   }
   
-/* useEffect( () => {
-  fetch('https://c12-29-ft-node-react.onrender.com/api/clients')
-  .then(res => res.json())
-  .then( data => { console.log("data en getclients: ", data)
-  })
-  .catch( error => console.log(error.message))
-}) */
 
   return (
     <>

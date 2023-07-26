@@ -18,8 +18,8 @@ export default function NavbarMenu () {
   const handleLogout = () => {
     /* localStorage.removeItem('token') */
     localStorage.removeItem('usuario')
-    window.location.reload()
-   navigate('/')
+    /* window.location.reload() */
+  navigate('/')
   }
   return (
     <div>

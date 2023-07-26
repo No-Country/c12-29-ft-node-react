@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://c12-29-ft-node-react.onrender.com' /* 'http://localhost:3001/'  */}),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://c12-29-ft-node-react.onrender.com' /* 'http://localhost:3001/' */ }),
   endpoints: (builder) => ({
     addUser: builder.mutation({
       query: (input) => ({
@@ -21,6 +21,9 @@ export const userApi = createApi({
     getUserById: builder.query({
       query: (_id) => `api/clients/${_id}`
     }),
+    getLawyerById: builder.query({
+      query: (_id) => `api/lawyers/${_id}`
+    }),
     getLawyers: builder.query({
       query: () => 'api/lawyers'
     }),
@@ -35,8 +38,18 @@ export const userApi = createApi({
       query: ({lawyerId, lawyerData}) => ({
         url: `api/lawyers/${lawyerId}`,
         method: 'PUT',
-        body: lawyerData,
+        body: lawyerData
       })
+    }),
+    createMeet: builder.mutation({
+      query: ({clientId, clientData}) => ({
+        url:`api/meets/${clientId}`,
+        method: 'POST',
+        body: clientData
+      })
+    }),
+    getMeets: builder.query({
+      query: ({userId, isClient }) => `api/meets/${userId}?isClient=${isClient}`
     })
   })
 })
@@ -52,5 +65,8 @@ export const {
   useGetUserByIdQuery, 
   useGetLawyersQuery, 
   useUpdateLawyerImageMutation,
-  useUpdateLawyerDataMutation
+  useUpdateLawyerDataMutation,
+  useCreateMeetMutation,
+  useGetMeetsQuery,
+  useGetLawyerByIdQuery
 } = userApi
