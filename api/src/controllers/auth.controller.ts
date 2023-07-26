@@ -33,6 +33,7 @@ export const signin = async (req: Request,res: Response) => {
 
 	try {
 		//find user
+
 		const user = isClient? await Client.findOne({ email }).lean(): await Lawyer.findOne({ email }).lean() 
 		if (!user) throw new Error('Usuario o contraseña incorrecta')
 		//password validation

@@ -10,6 +10,7 @@ import ClientServices from './pages/ClientServices'
 import LawyerPanel from './pages/LawyerPanel'
 import { saveUser } from './redux/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 const App = () => {
   const user = localStorage.getItem('usuario')
@@ -19,7 +20,6 @@ const App = () => {
   const userAccountType = useSelector( (state) => state.user.accountType)
   const userToken = useSelector( state => state.user.token)
   const navigate = useNavigate()
-  console.log("userAccountType", userAccountType)
   
    /*  if (userParse) {
       const { data, isLoading, error } = useGetUserByIdQuery(userParse._id)
@@ -27,13 +27,14 @@ const App = () => {
       // Lo reemplazo con un slice para el user, en principio toma manualmente el estado del LS,
       // con tiempo se puede conectar un middleware que tome el estado inicial del LS
     }  */
-    
-  if (userParse) {
-    dispatch(saveUser({token:userParse?.token, accountType:userParse?.user.accountType}))
-  }
-  
-  console.log("userAccountType en APP : ", userAccountType)
-  console.log("token en APP: ", userToken)
+    useEffect( () => {
+      if (userParse) {
+        /* dispatch(saveUser({token:userParse?.token, accountType:userParse?.user?.accountType})) */
+        dispatch(saveUser({token:userParse?.token, accountType:userParse?.user?.accountType, user:userParse?.user}))
+      }
+    },[])
+  console.log("EN APP")
+
   const theme = createTheme({
     typography: {
       fontFamily: [

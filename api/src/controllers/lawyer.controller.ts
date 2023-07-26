@@ -50,8 +50,8 @@ export const updateLawyerImage = async (req: Request, res: Response) => {
 	const {imageId} = req.body
 	try {
 		if (imageId) {
-			console.log(imageId);
-			
+			console.log( imageId)
+
 			await deleteImage(imageId.toString())
 			const lawyer = await Lawyer.findByIdAndUpdate(_id, {image: {}}, {new: true})
 			return res.status(200).json(lawyer)
@@ -59,7 +59,7 @@ export const updateLawyerImage = async (req: Request, res: Response) => {
 		const file = req.files?.image
 		let image 
 		//upload image
-		if(req.files?.image){
+    if(req.files?.image){
 			const uploadedFile = Array.isArray(file)
 			? file[0]
 			: file;
