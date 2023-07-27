@@ -10,17 +10,18 @@ import LawyerPanel from './pages/LawyerPanel'
 import { saveUser } from './redux/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { LocalizationProvider } from '@mui/x-date-pickers';
+import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import 'dayjs/locale/es';
+import 'dayjs/locale/es'
+import Subscriptions from './pages/Subscriptions'
 
 const App = () => {
   const user = localStorage.getItem('usuario')
   const userParse = JSON.parse(user)
   const userCredential = userParse?.accountType
   const dispatch = useDispatch()
-  const userAccountType = useSelector( (state) => state.user.accountType)
-  const userToken = useSelector( state => state.user.token)
+  const userAccountType = useSelector((state) => state.user.accountType)
+  const userToken = useSelector(state => state.user.token)
   const navigate = useNavigate()
   
     useEffect( () => {
@@ -44,7 +45,6 @@ const App = () => {
         } else { navigate('/')} 
         // sin else, un usuario no logeado que intente entrar, le queda pantalla en blanco
   }
-  
 
   return (
     <>
@@ -57,8 +57,8 @@ const App = () => {
               <Route path='/signup' element={<SignUp />} />
               <Route path='/services' element={ <Services />} /> 
               <Route path='/*' element={<Home />} />
-          </Routes>  
-        </LocalizationProvider> 
+          </Routes>
+        </LocalizationProvider>
       </ThemeProvider>
     </>
   )
