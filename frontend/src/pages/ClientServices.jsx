@@ -78,7 +78,14 @@ const ClientServices = () => {
           }
           {
             filteredData?.length
-              ? filteredData.map((item) => (<ServicesCard key={item._id} item={item} />))
+              ? filteredData.map((item) => {
+                console.log(item.meets.length)
+                console.log(item.subscription.meets)
+                if (item.meets.length >= item.subscription.meets) {
+                  return null
+                }
+                return <ServicesCard key={item._id} item={item} />
+              })
               : null
           }
           </>
