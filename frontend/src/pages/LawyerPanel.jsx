@@ -29,6 +29,7 @@ const LawyerPabel = () => {
   const [updateLawyerData] = useUpdateLawyerDataMutation();
 
   const [specialities, setSpecialities] = useState([]);
+	const [meets, setMeets] = useState([])
 
   const [profile, setProfile] = useState({
     specialty: "",
@@ -79,6 +80,13 @@ const LawyerPabel = () => {
     if (!userCredentials) {
       navigate("/");
     }
+
+		axios.get(`https://c12-29-ft-node-react.onrender.com/api/meets/${lawyerId}`)
+		.then(({data})=>{
+			setMeets(data)
+			console.log(data);
+		})
+
     axios
       .get("https://c12-29-ft-node-react.onrender.com/api/specialities")
       .then(({ data }) => {
@@ -122,7 +130,7 @@ const LawyerPabel = () => {
               <Box
                 sx={{ width: "50%", display: "flex", justifyContent: "center" }}
               >
-                <Typography> aun no tienes actividades</Typography>
+                <Typography> Aún no tienes actividades</Typography>
               </Box>
               <Box
                 sx={{
