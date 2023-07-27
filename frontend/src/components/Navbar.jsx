@@ -11,7 +11,6 @@ const Navbar = () => {
   if (userParse) {
     userInfo = userParse
   }
-
   return (
     <Box sx={{ width: 1 }}>
       <AppBar position="static" color='transparent' elevation={1}>
@@ -20,11 +19,18 @@ const Navbar = () => {
             LegalTech
           </Typography>
           {userInfo
-            ? <Stack direction='row' spacing={5}>
+            ? userInfo.user.accountType === 'Client'
+              ? <Stack direction='row' spacing={5}>
                 <NavLink to='/'><Button sx={buttonStyle} color='inherit'>Home</Button></NavLink>
                 <NavLink to='/services'><Button sx={buttonStyle} color='inherit'>Servicios</Button></NavLink>
                 <NavbarMenu />
               </Stack>
+              : <Stack direction='row' spacing={5}>
+                  <NavLink to='/'><Button sx={buttonStyle} color='inherit'>Home</Button></NavLink>
+                  <NavLink to='/services'><Button sx={buttonStyle} color='inherit'>Servicios</Button></NavLink>
+                  <NavLink to='/subscriptions'><Button sx={buttonStyle} color='inherit'>Planes</Button></NavLink>
+                  <NavbarMenu />
+                </Stack>
             : <Stack direction='row' spacing={5}>
                 <NavLink to='/'><Button sx={buttonStyle} color='inherit'>Home</Button></NavLink>
                 <NavLink to='/services'><Button sx={buttonStyle} color='inherit'>Servicios</Button></NavLink>
