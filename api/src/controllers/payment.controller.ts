@@ -31,7 +31,7 @@ export const createPayment = async (req: Request,res: Response) => {
 				failure: "https://c12-29-ft-node-react.vercel.app/",
 			},
 			notification_url:
-				"https://8cf0-2800-810-557-2bcd-d408-33a1-710f-ca4c.ngrok.io/api/payments/webhook",
+				"https://c12-29-ft-node-react.vercel.app/api/payments/webhook",
 		})
 
 		res.status(200).json(result)

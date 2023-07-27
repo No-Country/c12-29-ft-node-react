@@ -26,6 +26,7 @@ const LawyerPabel = () => {
     ? JSON.parse(dataInLocalStorage).user.accountType
     : null
   const lawyerId = useSelector((state) => state.user.user._id)
+  const subscription = useSelector((state) => state.user.user.subscription.name)
   const [updateLawyerData] = useUpdateLawyerDataMutation()
 
   const [specialities, setSpecialities] = useState([])
@@ -113,7 +114,7 @@ const LawyerPabel = () => {
               variant="h1"
               sx={{ fontSize: '1.5em', margin: '2rem 0 0 2rem' }}
             >
-              Panel de usuario abogado
+              Panel de usuario abogado - Tu plan actual: {subscription}
             </Typography>
             <Grid
               container
