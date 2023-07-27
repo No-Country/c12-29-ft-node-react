@@ -6,13 +6,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useEffect, useState, useRef } from 'react';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useGetMeetsQuery } from '../redux/userReducer';
-import Zoom from '@mui/material/Zoom';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { useGetLawyerByIdQuery } from '../redux/userReducer';
 import MeetItem from './MeetItem';
 
 export default function MeetsDialog() {
@@ -34,10 +31,6 @@ export default function MeetsDialog() {
   };
   const client = useSelector( state => state.user.user)
   const {data, isSuccess, isError, error, isLoading} = useGetMeetsQuery({userId:client._id, isClient:true})
- /*  console.log(data, isSuccess, error, isError)
-  console.log("data en MeetsModal: ", data)
-  console.log("isSucess: ", isSuccess)
-  console.log("isLoading: ", isLoading) */
 
   const descriptionElementRef = useRef(null);
   useEffect(() => {

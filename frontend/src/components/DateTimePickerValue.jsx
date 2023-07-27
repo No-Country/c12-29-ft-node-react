@@ -6,10 +6,9 @@ import 'dayjs/locale/es';
 
 export default function DateTimePickerValue({handlerSelectDate}) {
 
-  const [value, setValue] = useState(dayjs('2022-04-17T15:30'));
+  const [value, setValue] = useState(dayjs('2023-07-28T15:30'));
   const handleSelectValue = (newValue) => {
     setValue(new Date(newValue['$d']).toISOString())
-    console.log("new Date(): ", new Date(newValue['$d']).toISOString())
     handlerSelectDate(newValue)
   }
   console.log()

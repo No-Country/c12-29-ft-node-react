@@ -17,9 +17,6 @@ export default function ServicesCard({item}) {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const clientId = useSelector( state => state.user?.user._id)
   const userData = useSelector( state => state.user?.user)
-  // console.log("clientId: ", clientId) //client
-  // console.log("userData: ", userData )
-  // console.log('item.id en ServicesCard: ', item._id) // lawyer
   const [createMeet, {data, isLoading, isSuccess, error, isError}] = useCreateMeetMutation({
     fixedCacheKey: 'addMeet',
   })
@@ -73,21 +70,10 @@ export default function ServicesCard({item}) {
     isError? infoError(): null
     isSuccess? infoSuccess():null
   }
-
-  /* const handleDateChange = (date) => {
-    setSelectedDate(date);
-    console.log(date); // Aquí puede hacer lo que necesite con el valor seleccionado
-  }; */
-  useEffect(()=>{
-    let AAA ={}
-    console.log("selectedDate", selectedDate)
-    console.log("new Date(selectedDate).toISOString(): ", new Date(selectedDate).toISOString())
-    
-  },[selectedDate])
-
+  console.log('item: ', item)
   return (
     <Grid item  xs={12} sm={4}>
-      <Card sx={{ /* maxWidth: 345, */ margin: '2em', padding: '1em' }}>
+      <Card sx={{  margin: '2em', padding: '1em' }}>
         <CardMedia
           component="img"
           alt="foto de abogado"

@@ -1,8 +1,6 @@
-import { Avatar, Box, Button, Input, InputLabel, Typography, styled } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react'
+import { Box, Button, Input, InputLabel, Typography, styled } from '@mui/material';
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import axios from 'axios'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useUpdateLawyerImageMutation } from '../redux/userReducer';
 import Swal from 'sweetalert2';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -22,10 +20,7 @@ const ImgUploader = () => {
     setUrl(imgURL)
   },[image])
   
- /*  const handleSetImg = (e) => {
-    img.id = lawyerId
-    setImage( e.target.files[0])
-  } */
+
   const handleError = () => {
     Swal.fire({
       title: 'Error en la carga',

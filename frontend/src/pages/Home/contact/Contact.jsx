@@ -31,8 +31,6 @@ const Contact = () => {
   }
 
   const validateMessage = (e) => {
-    console.log("en validateMessage")
-    console.log("value: ", e.target.value)
     setMessage(e.target.value)
     if (e.target.value) {
       setMessageValid(true)
