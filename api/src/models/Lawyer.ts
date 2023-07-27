@@ -10,6 +10,7 @@ export interface ILawyer extends Document {
 	email: string
 	hashedPassword: string
 	meets: [Types.ObjectId]
+	description: string
 	isActive: boolean
 	isAuthorized: boolean
 	subscription: ISubscription
@@ -47,6 +48,9 @@ const LawyerSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Meet'
 	}],
+	description: {
+		type: String
+	},
 	isActive: {
 		type: Boolean,
 		default: true

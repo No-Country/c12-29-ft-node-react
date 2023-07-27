@@ -11,6 +11,9 @@ import LawyerPanel from './pages/LawyerPanel'
 import { saveUser } from './redux/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import 'dayjs/locale/es';
 
 const App = () => {
   const user = localStorage.getItem('usuario')
@@ -26,6 +29,7 @@ const App = () => {
       // console.log("data de useQuery en APP", data)  undefines, tiene scope de bloque
       // Lo reemplazo con un slice para el user, en principio toma manualmente el estado del LS,
       // con tiempo se puede conectar un middleware que tome el estado inicial del LS
+      
     }  */
     useEffect( () => {
       if (userParse) {
@@ -55,16 +59,18 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/contact' element={<Contact />} />
-            <Route path='/signup' element={<SignUp />} />
-            <Route path='/services' element={ <Services />} /> 
-            {/* <Route path='/services' element={  (userCredential==='Client')? <Services /> : <Navigate replace to={'/lawyerpanel'} /> } /> 
-            <Route path='/lawyerpanel' element={<LawyerPanel />} /> */}
-            <Route path='/*' element={<Home />} />
-        </Routes>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es" >
+          <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/contact' element={<Contact />} />
+              <Route path='/signup' element={<SignUp />} />
+              <Route path='/services' element={ <Services />} /> 
+              {/* <Route path='/services' element={  (userCredential==='Client')? <Services /> : <Navigate replace to={'/lawyerpanel'} /> } /> 
+              <Route path='/lawyerpanel' element={<LawyerPanel />} /> */}
+              <Route path='/*' element={<Home />} />
+          </Routes>  
+        </LocalizationProvider> 
       </ThemeProvider>
     </>
   )
