@@ -7,7 +7,7 @@ const MeetItem = ({lawyerId, date}) => {
 
   const {data, isSuccess, isLoading, isError, error} = useGetLawyerByIdQuery(lawyerId)
   const {day, numberDayOfMonth ,month, year, hour, minutes, seconds} = dateFormater(date)
-  console.log(numberDayOfMonth)
+  // console.log(numberDayOfMonth)
   //console.log("date en MeetItem: ", date)
   /* useEffect(() => {
     data? console.log("data en MeetItem: ", data):console.log("no hay data en MeetItem")
