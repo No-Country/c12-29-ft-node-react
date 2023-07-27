@@ -33,7 +33,6 @@ const Navbar = () => {
                 </Stack>
             : <Stack direction='row' spacing={5}>
                 <NavLink to='/'><Button sx={buttonStyle} color='inherit'>Home</Button></NavLink>
-                <NavLink to='/services'><Button sx={buttonStyle} color='inherit'>Servicios</Button></NavLink>
                 <NavLink to='/login'><Button sx={buttonStyle} color="inherit">Ingresar</Button></NavLink>
               </Stack>
           }
