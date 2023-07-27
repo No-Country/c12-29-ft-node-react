@@ -7,7 +7,22 @@ export const getUserMeets = async (req:Request,res:Response) => {
 	const {userId} = req.params
 	const {isClient} = req.query
 	try {
-		const userMeets = isClient ? await Client.findById(userId).populate('meets') : await Lawyer.findById(userId).populate('meets')
+		const userMeets = isClient ? await Client.findById(userId).populate({
+			path: 'meets',
+      model: 'Meet',
+      populate: {
+        path: 'lawyerId',
+        model: 'Lawyer'
+      }
+		}) : await Lawyer.findById(userId).populate({
+      path: 'meets',
+      model: 'Meet',
+      populate: {
+        path: 'clientId',
+        model: 'Client'
+      }
+    })
+
 		return res.status(200).json(userMeets?.meets)
 	} catch (error) {
 		console.log(error);
