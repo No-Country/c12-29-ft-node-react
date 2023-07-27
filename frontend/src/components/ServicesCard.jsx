@@ -117,8 +117,7 @@ export default function ServicesCard({item}) {
           </Typography>
           <Typography>Especialidades: {specialitiesList} </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi
-            est praesentium doloribus suscipit adipisci, cumque dolores minima.
+           {item.description}
           </Typography>
           <DateTimePickerValue handlerSelectDate={handlerSelectDate} />
         </CardContent>

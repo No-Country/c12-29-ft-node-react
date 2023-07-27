@@ -11,10 +11,12 @@ export interface IMeet extends Document {
 
 const MeetSchema = new Schema({
 	clientId: {
+		ref: 'Client',
 		type: Schema.Types.ObjectId,
 		required: true
 	},
 	lawyerId: {
+		ref: 'Lawyer',
 		type: Schema.Types.ObjectId,
 		required: true
 	},

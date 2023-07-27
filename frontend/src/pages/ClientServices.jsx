@@ -14,6 +14,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 const ClientServices = () => {
   const { data, isLoading, isSuccess, isError } = useGetLawyersQuery()
   
+	const [specialities, setSpecialities] = useState([])
+
   const navigate = useNavigate()
   const dataInLocalStorage = localStorage.getItem('usuario')
   const userCredentials = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : null
@@ -68,7 +70,14 @@ const ClientServices = () => {
           }
           {
             filteredData?.length
-              ? filteredData.map((item) => (<ServicesCard key={item._id} item={item} />))
+              ? filteredData.map((item) => {
+								console.log(item.meets.length)
+								console.log(item.subscription.meets);
+								if(item.meets.length >= item.subscription.meets){
+									return null
+								}
+								return <ServicesCard key={item._id} item={item} />
+							})
               : null
           }
           </>
