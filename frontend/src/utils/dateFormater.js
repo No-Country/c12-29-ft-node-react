@@ -1,5 +1,5 @@
 
- /* let date = '2023-07-25T04:14:24.276Z' */
+
 export function dateFormater(date){
   
   const newDate = new Date(date)

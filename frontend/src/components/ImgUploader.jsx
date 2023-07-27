@@ -42,48 +42,6 @@ const ImgUploader = () => {
   const uploadImage = (e) => {
     e.preventDefault()
 
-      /*  */
-      // CON FETCH
-      // try {
-      //   const formData = new FormData()
-      //   formData.append('image', image)
-      //   /* formData.append("imageId", lawyerId) */
-      //   const sendImg = await fetch( `https://c12-29-ft-node-react.onrender.com/api/lawyers/image/${lawyerId}`,
-      //   /* const sendImg = await fetch(`http://localhost:3001/api/lawyers/image/${lawyerId}`, */
-      //   { 
-      //     method: 'PUT',
-      //     body: formData,
-      //   })
-      // } catch (error) {
-      //   console.log(error.message)
-      // }
-
-      /////////////////////////////////////////////////
-      // CON AXIOS
-      // const formData = new FormData()
-      // formData.append('image', image)
-      // try{
-      //   const response = await axios.put( `https://c12-29-ft-node-react.onrender.com/api/lawyers/image/${lawyerId}`, formData, {
-      //       headers: {
-      //         'Content-Type': 'multipart/form-data'
-      //       }  
-      //     }
-      //   )
-      //   console.log("response: ", response)
-
-      // }catch(error) {
-      //     handleError()
-      //     console.log("ERROR: ", error)
-      // }/* finally{
-
-      // } */
-      //try{
-
-      //}catch(error){
-        //console.log(error)
-      //}
-      /////////////////////////////////////
-      // CON RTK QUERY
       
       if (image) {
           const formData = new FormData()
