@@ -15,7 +15,7 @@ import servicesBg from '../assets/servicesBack.jpg'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import ImageModal from '../components/ImageModal'
-import { useUpdateLawyerDataMutation } from '../redux/userReducer'
+import { useGetLawyerByIdQuery, useUpdateLawyerDataMutation } from '../redux/userReducer'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import Meet from '../components/Meet'
@@ -26,7 +26,7 @@ const LawyerPabel = () => {
     ? JSON.parse(dataInLocalStorage).user.accountType
     : null;
   const lawyerId = useSelector((state) => state.user.user._id);
-  const subscription = useSelector((state) => state.user.user.subscription.name);
+	const {data} = useGetLawyerByIdQuery(lawyerId)
   const [updateLawyerData] = useUpdateLawyerDataMutation();
 
   const [specialities, setSpecialities] = useState([])
