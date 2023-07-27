@@ -9,11 +9,11 @@ import SearchBar from '../components/SearchBar'
 import Filter from '../components/Filter'
 import Footer from './Home/Footer'
 import MeetsDialog from '../components/MeetsDialog'
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress'
 
 const ClientServices = () => {
   const { data, isLoading, isSuccess, isError } = useGetLawyersQuery()
-  
+
   const navigate = useNavigate()
   const dataInLocalStorage = localStorage.getItem('usuario')
   const userCredentials = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : null
@@ -45,8 +45,8 @@ const ClientServices = () => {
       navigate('/')
     }
   }, [])
-//////////////////////////////
-/* useEffect( () => {
+  /// ///////////////////////////
+  /* useEffect( () => {
   const handleFetch = () => {
     fetch(`https://c12-29-ft-node-react.onrender.com/api/meets/64af5cf18c8463b543fd00cd?isClient=true`)
       .then(res => res.json())
@@ -72,10 +72,9 @@ const ClientServices = () => {
         <Grid container sx={{ marginTop: '3em', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'start', alignItems: 'center', px: '5%' }}>
           <>
           {
-            isLoading?
-              <CircularProgress sx={{color:'white'}} />
-              :
-              null
+            isLoading
+              ? <CircularProgress sx={{ color: 'white' }} />
+              : null
           }
           {
             filteredData?.length

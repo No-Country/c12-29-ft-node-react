@@ -28,28 +28,31 @@ export const userApi = createApi({
       query: () => 'api/lawyers'
     }),
     updateLawyerImage: builder.mutation({
-      query: ({lawyerId, formData}) => ({
+      query: ({ lawyerId, formData }) => ({
         url: `api/lawyers/image/${lawyerId}`,
         method: 'PUT',
-        body: formData,
+        body: formData
       })
     }),
     updateLawyerData: builder.mutation({
-      query: ({lawyerId, lawyerData}) => ({
+      query: ({ lawyerId, lawyerData }) => ({
         url: `api/lawyers/${lawyerId}`,
         method: 'PUT',
         body: lawyerData
       })
     }),
     createMeet: builder.mutation({
-      query: ({clientId, clientData}) => ({
-        url:`api/meets/${clientId}`,
+      query: ({ clientId, clientData }) => ({
+        url: `api/meets/${clientId}`,
         method: 'POST',
         body: clientData
       })
     }),
     getMeets: builder.query({
-      query: ({userId, isClient }) => `api/meets/${userId}?isClient=${isClient}`
+      query: ({ userId, isClient }) => `api/meets/${userId}?isClient=${isClient}`
+    }),
+    getSubscriptions: builder.query({
+      query: () => 'api/subscriptions'
     })
   })
 })
@@ -59,14 +62,15 @@ export const userApi = createApi({
       .catch(err => console.log( err.message)) */
 export const selectUser = (state) => state.userApi
 
-export const { 
-  useAddUserMutation, 
-  useGetUserMutation, 
-  useGetUserByIdQuery, 
-  useGetLawyersQuery, 
+export const {
+  useAddUserMutation,
+  useGetUserMutation,
+  useGetUserByIdQuery,
+  useGetLawyersQuery,
   useUpdateLawyerImageMutation,
   useUpdateLawyerDataMutation,
   useCreateMeetMutation,
   useGetMeetsQuery,
-  useGetLawyerByIdQuery
+  useGetLawyerByIdQuery,
+  useGetSubscriptionsQuery
 } = userApi
