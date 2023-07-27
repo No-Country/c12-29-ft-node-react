@@ -167,7 +167,7 @@ const SignUp = () => {
                             error={error.confirmpassword.length > 1}
                             helperText={error.confirmpassword}
                             focused={false}
-                            sx={{ /* width:'80%', */input: { color: '#FFFFFF' }, border: '1px solid white', margin: '3% 0% 3% 0%', '& label': { color: 'white' }, '& .MuiInputLabel-shrink': { transform: 'translate(14px, -20px) scale(0.75)' } }}
+                            sx={{ input: { color: '#FFFFFF' }, border: '1px solid white', margin: '3% 0% 3% 0%', '& label': { color: 'white' }, '& .MuiInputLabel-shrink': { transform: 'translate(14px, -20px) scale(0.75)' } }}
                     />
                     <TextField
                             id="outlined-controlled"
@@ -176,7 +176,7 @@ const SignUp = () => {
                             value={input.license}
                             onChange={handleChange}
                             focused={false}
-                            sx={{ /* width:'80%', */input: { color: '#FFFFFF' }, border: '1px solid white', margin: '3% 0% 3% 0%', '& label': { color: 'white' }, '& .MuiInputLabel-shrink': { transform: 'translate(14px, -20px) scale(0.75)' } }}
+                            sx={{ input: { color: '#FFFFFF' }, border: '1px solid white', margin: '3% 0% 3% 0%', '& label': { color: 'white' }, '& .MuiInputLabel-shrink': { transform: 'translate(14px, -20px) scale(0.75)' } }}
                             />
 
                         <FormControl focused={false} sx={{ /* width:'80%', */border: '1px solid white', margin: '3% 0% 3% 0%', '& .MuiInputLabel-shrink': { transform: 'translate(14px, -20px) scale(0.75)' } }} >

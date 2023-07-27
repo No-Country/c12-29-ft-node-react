@@ -9,15 +9,15 @@ import SearchBar from '../components/SearchBar'
 import Filter from '../components/Filter'
 import Footer from './Home/Footer'
 import MeetsDialog from '../components/MeetsDialog'
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress'
 
 const ClientServices = () => {
   const { data, isLoading, isSuccess, isError } = useGetLawyersQuery()
-  
+
   const navigate = useNavigate()
   const dataInLocalStorage = localStorage.getItem('usuario')
   const userCredentials = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : null
-  if (userCredentials) console.log('userType: ', userCredentials)
+  if (userCredentials) console.log('userType: ', userCredentials)//
 
   const filterData = (query, data, type) => {
     if (type === 'search') {
@@ -41,21 +41,9 @@ const ClientServices = () => {
 
   useEffect(() => {
     if (!userCredentials) {
-      console.log('EN UseEffect')
       navigate('/')
     }
   }, [])
-//////////////////////////////
-/* useEffect( () => {
-  const handleFetch = () => {
-    fetch(`https://c12-29-ft-node-react.onrender.com/api/meets/64af5cf18c8463b543fd00cd?isClient=true`)
-      .then(res => res.json())
-      .then( data => console.log(data))
-      .catch(err => console.log( err.message))
-  }
-  handleFetch()
-  console.log("en useEffect")
-},[]) */
 
   return (
     <>
@@ -72,14 +60,20 @@ const ClientServices = () => {
         <Grid container sx={{ marginTop: '3em', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'start', alignItems: 'center', px: '5%' }}>
           <>
           {
-            isLoading?
-              <CircularProgress sx={{color:'white'}} />
-              :
-              null
+            isLoading
+              ? <CircularProgress sx={{ color: 'white' }} />
+              : null
           }
           {
             filteredData?.length
-              ? filteredData.map((item) => (<ServicesCard key={item._id} item={item} />))
+              ? filteredData.map((item) => {
+                console.log(item.meets.length)
+                console.log(item.subscription.meets)
+                if (item.meets.length >= item.subscription.meets) {
+                  return null
+                }
+                return <ServicesCard key={item._id} item={item} />
+              })
               : null
           }
           </>
