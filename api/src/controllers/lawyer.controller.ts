@@ -5,7 +5,7 @@ import { deleteImage, uploadImage } from "../libs/cloudinary";
 
 export const getLawyers = async (req: Request,res: Response) => {
 	const { name } = req.query;
-	//Regex
+
 	const query = {
 		$or: [
 			{ firstname: { $regex: name?.toString(),$options: 'i' } },

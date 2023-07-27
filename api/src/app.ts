@@ -31,12 +31,10 @@ app.use((req, res, next) => {
 });
 app.use(express.json())
 
-const uploadDir = path.join(__dirname, '../upload');
-
 app.use(fileUpload({
-  useTempFiles: true,
-  tempFileDir: uploadDir
-}));
+	useTempFiles: true,
+	tempFileDir: path.join(__dirname, 'upload')
+}))
 
 // routes
 app.use('/api/auth',authRouter)
