@@ -7,183 +7,184 @@ import {
   MenuItem,
   Select,
   TextField,
-  Typography,
-} from "@mui/material";
-import Navbar from "../components/Navbar";
-import { useEffect, useState } from "react";
-import servicesBg from "../assets/servicesBack.jpg";
-import { useNavigate } from "react-router-dom";
-import ImgUploader from "../components/ImgUploader";
-import { useDispatch, useSelector } from "react-redux";
-import ImageModal from "../components/ImageModal";
-import { useGetLawyerByIdQuery, useUpdateLawyerDataMutation } from "../redux/userReducer";
-import axios from "axios";
-import Swal from "sweetalert2";
-import { saveUser } from "../redux/userSlice";
+  Typography
+} from '@mui/material'
+import Navbar from '../components/Navbar'
+import { useEffect, useState } from 'react'
+import servicesBg from '../assets/servicesBack.jpg'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import ImageModal from '../components/ImageModal'
+import { useUpdateLawyerDataMutation } from '../redux/userReducer'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import Meet from '../components/Meet'
 const LawyerPabel = () => {
-
-
-	
-	const navigate = useNavigate();
+  const navigate = useNavigate();
   const dataInLocalStorage = localStorage.getItem("usuario");
-  
-	const userCredentials = dataInLocalStorage
-	? JSON.parse(dataInLocalStorage).user.accountType
-	: null;
+  const userCredentials = dataInLocalStorage
+    ? JSON.parse(dataInLocalStorage).user.accountType
+    : null;
   const lawyerId = useSelector((state) => state.user.user._id);
-	
-	const {data, isSuccess, isLoading, isError, error} = useGetLawyerByIdQuery(lawyerId)
-
+  const subscription = useSelector((state) => state.user.user.subscription.name);
   const [updateLawyerData] = useUpdateLawyerDataMutation();
 
-  const [specialities, setSpecialities] = useState([]);
-	const [meets, setMeets] = useState([])
+  const [specialities, setSpecialities] = useState([])
+  const [meets, setMeets] = useState([])
 
   const [profile, setProfile] = useState({
-    specialty: "",
-    description: "",
-  });
+    specialty: '',
+    description: ''
+  })
 
   const handleSelect = (e) => {
-    const { value, name } = e.target;
+    const { value, name } = e.target
     setProfile({
       ...profile,
-      [name]: value,
-    });
-  };
+      [name]: value
+    })
+  }
 
   const handleTextField = (e) => {
-    const { value } = e.target;
+    const { value } = e.target
     setProfile({
       ...profile,
-      description: value,
-    });
-  };
+      description: value
+    })
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (profile) {
-      const lawyerData = new FormData();
-      lawyerData.append("specialities", [profile.specialty]);
-      lawyerData.append("description", profile.description);
+      const lawyerData = new FormData()
+      lawyerData.append('specialities', [profile.specialty])
+      lawyerData.append('description', profile.description)
       const dataquery = {
         lawyerId,
-        lawyerData,
-      };
+        lawyerData
+      }
       updateLawyerData(dataquery)
         .unwrap()
-				.then(()=>{
-					Swal.fire({
-						title: 'Usuario actualizado',
-						icon: 'success',
-						denyButtonText: 'Cerrar',
-						timer: 3000
-					})
-				})
-        .catch((error) => console.error(error));
+        .then(() => {
+          Swal.fire({
+            title: 'Usuario actualizado',
+            icon: 'success',
+            denyButtonText: 'Cerrar',
+            timer: 3000
+          })
+        })
+        .catch((error) => console.error(error))
     }
-  };
+  }
 
   useEffect(() => {
     if (!userCredentials) {
-      navigate("/");
+      navigate('/')
     }
 
-		axios.get(`https://c12-29-ft-node-react.onrender.com/api/meets/${lawyerId}`)
-		.then(({data})=>{
-			setMeets(data)
-			console.log(data);
-		})
+    axios.get(`https://c12-29-ft-node-react.onrender.com/api/meets/${lawyerId}`)
+      .then(({ data }) => {
+        setMeets(data)
+      })
 
     axios
-      .get("https://c12-29-ft-node-react.onrender.com/api/specialities")
+      .get('https://c12-29-ft-node-react.onrender.com/api/specialities')
       .then(({ data }) => {
-        setSpecialities(data);
-      });
-  }, []);
+        setSpecialities(data)
+      })
+  }, [])
 
   return (
     <>
-      {userCredentials ? (
+      {userCredentials
+        ? (
         <Box
           sx={{
-            position: "relative",
-            zIndex: "0",
+            position: 'relative',
+            zIndex: '0',
             backgroundImage: `Url(${servicesBg})`,
-            backgroundRepeat: "repeat",
-            backgroundSize: "cover",
-            minHeight: "100vh",
+            backgroundRepeat: 'repeat',
+            backgroundSize: 'cover',
+            minHeight: '100vh'
           }}
         >
-          <Box sx={{ zIndex: "1", color: "white" }}>
-            <Navbar sx={{ width: "100%" }} />
+          <Box sx={{ zIndex: '1', color: 'white' }}>
+            <Navbar sx={{ width: '100%' }} />
             <Typography
               variant="h1"
-              sx={{ fontSize: "1.5em", margin: "2rem 0 0 2rem" }}
+              sx={{ fontSize: '1.5em', margin: '2rem 0 0 2rem' }}
             >
               Panel de usuario abogado - Tu plan actual: {data?.subscription?.name}
             </Typography>
             <Grid
               container
               sx={{
-                marginTop: "3em",
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                justifyContent: "start",
-                alignItems: "center",
-                px: "5%",
+                height: '100%',
+                marginTop: '3em',
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                alignItems: 'start',
+                px: '5%'
               }}
             >
               <Box
-                sx={{ width: "50%", display: "flex", justifyContent: "center" }}
+                sx={{ width: '50%', display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center' }}
               >
-                <Typography> Aún no tienes actividades</Typography>
+                <Typography sx={{ mt: 2, mb: 4, fontSize: '20px' }}>Reuniones</Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'start' }}>
+                  {
+                  meets
+                    ? meets.map((data) => (<Meet key={data._id} data={data} />))
+                    : <Typography> Aún no tienes actividades</Typography>
+                  }
+                </Box>
               </Box>
               <Box
                 sx={{
-                  width: "50%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  width: '50%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center'
                 }}
               >
-                <Typography sx={{ mt: 2, mb: 4 }}>Perfil</Typography>
-							
+                <Typography sx={{ mt: 2, mb: 4, fontSize: '20px' }}>Perfil</Typography>
+
                 <form action="" onSubmit={handleSubmit}>
                   <Box
                     sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center'
                     }}
                   >
                     <FormControl
                       focused={false}
                       sx={{
                         mb: 3,
-                        display: "flex",
-                        flexDirection: "column",
+                        display: 'flex',
+                        flexDirection: 'column',
                         minWidth: 140,
-                        border: " 1px solid white",
-                        borderRadius: "4px",
-                        "& .MuiInputLabel-shrink": {
-                          transform: "translate(14px, -20px) scale(0.75)",
-                        },
+                        border: ' 1px solid white',
+                        borderRadius: '4px',
+                        '& .MuiInputLabel-shrink': {
+                          transform: 'translate(14px, -20px) scale(0.75)'
+                        }
                       }}
                     >
-                      <InputLabel sx={{ color: "white" }}>
+                      <InputLabel sx={{ color: 'white' }}>
                         Especialidad
                       </InputLabel>
                       <Select
                         value={profile.specialty}
                         label="especialidad"
                         sx={{
-                          color: "white",
-                          "& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon": {
-                            color: "white",
-                          },
+                          color: 'white',
+                          '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon': {
+                            color: 'white'
+                          }
                         }}
                         onChange={handleSelect}
                         name="specialty"
@@ -192,23 +193,24 @@ const LawyerPabel = () => {
                           <em>Ninguna</em>
                         </MenuItem>
                         {specialities.map((speciality) => (
-                          <MenuItem value={speciality.name}>{speciality.name}</MenuItem>
+                          <MenuItem key={speciality.name} value={speciality.name}>{speciality.name}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>
                     <TextField
                       sx={{
-                        border: " 1px solid white",
-                        borderRadius: "4px",
-                        "& .MuiInputLabel-shrink": {
-                          transform: "translate(14px, -20px) scale(0.75)",
+                        minWidth: '320px',
+                        border: ' 1px solid white',
+                        borderRadius: '4px',
+                        '& .MuiInputLabel-shrink': {
+                          transform: 'translate(14px, -20px) scale(0.75)'
                         },
-                        "& label.css-6gguzh-MuiFormLabel-root-MuiInputLabel-root":
-                          { color: "white" },
-                        "& label.css-h7lfeh-MuiFormLabel-root-MuiInputLabel-root":
-                          { color: "white" },
-                        "& textarea.css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input":
-                          { color: "white" },
+                        '& label.css-6gguzh-MuiFormLabel-root-MuiInputLabel-root':
+                          { color: 'white' },
+                        '& label.css-h7lfeh-MuiFormLabel-root-MuiInputLabel-root':
+                          { color: 'white' },
+                        '& textarea.css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input':
+                          { color: 'white' }
                       }}
                       value={profile.description}
                       label="descripcion"
@@ -222,17 +224,17 @@ const LawyerPabel = () => {
                       type="submit"
                       sx={{
                         mt: 3,
-                        display: "block",
-                        width: { xs: "120px", sm: "140px" },
-                        background: "#FAFF00",
-                        color: "black",
-                        "&:hover": { background: "#FAFF00" },
-                        "& .Mui-focusVisible": { background: "#FAFF00" },
-                        textAlign: "center",
-                        fontSize: "1em",
-                        lineHeight: "1.1em",
-                        padding: "6px 4px 6px 4px",
-                        borderRadius: "4px",
+                        display: 'block',
+                        width: { xs: '120px', sm: '140px' },
+                        background: '#FAFF00',
+                        color: 'black',
+                        '&:hover': { background: '#FAFF00' },
+                        '& .Mui-focusVisible': { background: '#FAFF00' },
+                        textAlign: 'center',
+                        fontSize: '1em',
+                        lineHeight: '1.1em',
+                        padding: '6px 4px 6px 4px',
+                        borderRadius: '4px'
                       }}
                     >
                       Guardar
@@ -244,9 +246,10 @@ const LawyerPabel = () => {
             </Grid>
           </Box>
         </Box>
-      ) : null}
+          )
+        : null}
     </>
-  );
-};
+  )
+}
 
-export default LawyerPabel;
+export default LawyerPabel

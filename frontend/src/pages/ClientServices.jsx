@@ -70,7 +70,6 @@ const ClientServices = () => {
           <MeetsDialog />
         </Container>
         <Grid container sx={{ marginTop: '3em', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'start', alignItems: 'center', px: '5%' }}>
-          <>
           {
             isLoading
               ? <CircularProgress sx={{ color: 'white' }} />
@@ -88,7 +87,6 @@ const ClientServices = () => {
               })
               : null
           }
-          </>
         </Grid>
         </Box>
         <Footer />
