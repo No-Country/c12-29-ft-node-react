@@ -9,6 +9,7 @@ import SearchBar from '../components/SearchBar'
 import Filter from '../components/Filter'
 import Footer from './Home/Footer'
 import MeetsDialog from '../components/MeetsDialog'
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ClientServices = () => {
   const { data, isLoading, isSuccess, isError } = useGetLawyersQuery()
@@ -56,8 +57,6 @@ const ClientServices = () => {
   console.log("en useEffect")
 },[]) */
 
-
-
   return (
     <>
     {
@@ -71,11 +70,19 @@ const ClientServices = () => {
           <MeetsDialog />
         </Container>
         <Grid container sx={{ marginTop: '3em', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'start', alignItems: 'center', px: '5%' }}>
+          <>
+          {
+            isLoading?
+              <CircularProgress sx={{color:'white'}} />
+              :
+              null
+          }
           {
             filteredData?.length
               ? filteredData.map((item) => (<ServicesCard key={item._id} item={item} />))
               : null
           }
+          </>
         </Grid>
         </Box>
         <Footer />

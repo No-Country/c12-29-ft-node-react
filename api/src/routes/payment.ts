@@ -1,8 +1,10 @@
 import {Router} from 'express'
-import {createPayment} from '../controllers/payment.controller'
+import {createPayment, webhook} from '../controllers/payment.controller'
 const router = Router()
 
-router.post('payment', createPayment)
+router.post('/subscribe', createPayment)
+
+router.post('/webhook', webhook)
 // router.post()
 // router.post()
 

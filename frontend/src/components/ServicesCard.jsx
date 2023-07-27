@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,9 +10,11 @@ import { Box, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useCreateMeetMutation } from '../redux/userReducer';
 import Swal from 'sweetalert2';
+import DateTimePickerValue from './DateTimePickerValue';
 
 export default function ServicesCard({item}) {
 
+  const [selectedDate, setSelectedDate] = useState(new Date())
   const clientId = useSelector( state => state.user?.user._id)
   const userData = useSelector( state => state.user?.user)
   // console.log("clientId: ", clientId) //client
@@ -21,6 +24,11 @@ export default function ServicesCard({item}) {
     fixedCacheKey: 'addMeet',
   })
   const specialitiesList = item.specialities.join(', ')
+
+  const handlerSelectDate = (meetDate) => {
+    setSelectedDate(meetDate)
+    console.log("meetDate en handleSelectDate", meetDate)
+  }
 
   const infoSuccess = () => {
     Swal.fire({
@@ -44,7 +52,7 @@ export default function ServicesCard({item}) {
   const handleContactLawyer = async () => {
     console.log("EN HANDLE")
     try {
-      const meet = await createMeet({clientId, clientData:{lawyerId:item._id, date:new Date()}})
+      const meet = await createMeet({clientId, clientData:{lawyerId:item._id, date:selectedDate}})
       // console.log("EN TRY")
       // const clientData = {lawyerId, date:new Date()}  // NO FUNCIONA EL FETCH
       // console.log("clientData ",clientData)
@@ -65,9 +73,18 @@ export default function ServicesCard({item}) {
     isError? infoError(): null
     isSuccess? infoSuccess():null
   }
-/* console.log("DATA: ", data)
-console.log("ERROR: ", error, " isSuccsses: ", isSuccess)
-console.log("isError: ", isError) */
+
+  /* const handleDateChange = (date) => {
+    setSelectedDate(date);
+    console.log(date); // Aquí puede hacer lo que necesite con el valor seleccionado
+  }; */
+  useEffect(()=>{
+    let AAA ={}
+    console.log("selectedDate", selectedDate)
+    console.log("new Date(selectedDate).toISOString(): ", new Date(selectedDate).toISOString())
+    
+  },[selectedDate])
+
   return (
     <Grid item  xs={12} sm={4}>
       <Card sx={{ /* maxWidth: 345, */ margin: '2em', padding: '1em' }}>
@@ -78,7 +95,6 @@ console.log("isError: ", isError) */
           width="100%"
           sx={{width:'100%', aspectRatio:'1/1'}}
           image={item?.image?.url}
-          /* image={img} */
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -90,6 +106,7 @@ console.log("isError: ", isError) */
             Excepturi est praesentium doloribus suscipit adipisci, cumque dolores 
             minima.
           </Typography>
+          <DateTimePickerValue handlerSelectDate={handlerSelectDate}  />
         </CardContent>
         <CardActions>
           <Button onClick={handleContactLawyer} size="small">Contactar</Button>
