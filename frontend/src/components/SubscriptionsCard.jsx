@@ -30,7 +30,9 @@ const SubscriptionsCard = ({ data }) => {
 				userId:_id,
 				subscription: data
 			})
-			console.log(response.data.response.init_point);
+
+			window.location.href = response.data.response.init_point
+			
 		} catch (error) {
 			console.log(error);
 		}

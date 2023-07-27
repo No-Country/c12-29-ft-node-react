@@ -20,14 +20,14 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import Meet from '../components/Meet'
 const LawyerPabel = () => {
-  const navigate = useNavigate()
-  const dataInLocalStorage = localStorage.getItem('usuario')
+  const navigate = useNavigate();
+  const dataInLocalStorage = localStorage.getItem("usuario");
   const userCredentials = dataInLocalStorage
     ? JSON.parse(dataInLocalStorage).user.accountType
-    : null
-  const lawyerId = useSelector((state) => state.user.user._id)
-  const subscription = useSelector((state) => state.user.user.subscription.name)
-  const [updateLawyerData] = useUpdateLawyerDataMutation()
+    : null;
+  const lawyerId = useSelector((state) => state.user.user._id);
+  const subscription = useSelector((state) => state.user.user.subscription.name);
+  const [updateLawyerData] = useUpdateLawyerDataMutation();
 
   const [specialities, setSpecialities] = useState([])
   const [meets, setMeets] = useState([])
@@ -114,7 +114,7 @@ const LawyerPabel = () => {
               variant="h1"
               sx={{ fontSize: '1.5em', margin: '2rem 0 0 2rem' }}
             >
-              Panel de usuario abogado - Tu plan actual: {subscription}
+              Panel de usuario abogado - Tu plan actual: {data?.subscription?.name}
             </Typography>
             <Grid
               container
