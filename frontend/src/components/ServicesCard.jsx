@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import img from '../assets/abogadoImg.jpg'
-import { Box, Grid } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { useCreateMeetMutation } from '../redux/userReducer';
-import Swal from 'sweetalert2';
-import DateTimePickerValue from './DateTimePickerValue';
+import { useEffect, useState } from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import img from "../assets/abogadoImg.jpg";
+import { Box, Grid } from "@mui/material";
+import { useSelector } from "react-redux";
+import { useCreateMeetMutation, useGetMeetsQuery } from "../redux/userReducer";
+import Swal from "sweetalert2";
+import DateTimePickerValue from "./DateTimePickerValue";
 
 export default function ServicesCard({item}) {
 
@@ -20,36 +20,46 @@ export default function ServicesCard({item}) {
   const [createMeet, {data, isLoading, isSuccess, error, isError}] = useCreateMeetMutation({
     fixedCacheKey: 'addMeet',
   })
-  const specialitiesList = item.specialities.join(', ')
+
+  const specialitiesList = item.specialities.join(", ");
 
   const handlerSelectDate = (meetDate) => {
-    setSelectedDate(meetDate)
-    console.log("meetDate en handleSelectDate", meetDate)
-  }
+    setSelectedDate(meetDate);
+    console.log("meetDate en handleSelectDate", meetDate);
+  };
 
-  const infoSuccess = () => {
-    Swal.fire({
-      title: 'Se agregó la cita' ,
-      icon: 'success',
-      denyButtonText: 'cerrar',
-      timer: 3000,
-      width: '300px'
-    })
-  }
   const infoError = () => {
     Swal.fire({
-      title: 'Error, intente nuevamnete',
-      icon: 'error',
-      denyButtonText: 'cerrar',
+      title: "Error, intente nuevamnete",
+      icon: "error",
+      denyButtonText: "cerrar",
       timer: 3000,
-      width: '300px'
-    })
-  }
+      width: "300px",
+    });
+  };
 
   const handleContactLawyer = async () => {
-    console.log("EN HANDLE")
+    console.log("EN HANDLE");
     try {
-      const meet = await createMeet({clientId, clientData:{lawyerId:item._id, date:selectedDate}})
+
+			const meet = await createMeet({
+				clientId,
+				clientData: { lawyerId: item._id, date: selectedDate },
+			});
+      Swal.fire({
+        title: "Se agregó la cita",
+        icon: "success",
+        denyButtonText: "cerrar",
+        timer: 3000,
+        width: "300px",
+      }).then((result) => {
+				if (result) {
+					// window.location.reload()
+				}
+			})
+			
+			// const {data, isSuccess, isLoading} = useGetMeetsQuery({userId:clientId, isClient:true})
+
       // console.log("EN TRY")
       // const clientData = {lawyerId, date:new Date()}  // NO FUNCIONA EL FETCH
       // console.log("clientData ",clientData)
@@ -65,21 +75,40 @@ export default function ServicesCard({item}) {
       // const res = await createMeet.json()
       // console.log(res)
     } catch {
-      error => console.log(error.message)
+      (error) => console.log(error.message);
+
+      Swal.fire({
+        title: "Error, intente nuevamnete",
+        icon: "error",
+        denyButtonText: "cerrar",
+        timer: 3000,
+        width: "300px",
+      });
     }
-    isError? infoError(): null
-    isSuccess? infoSuccess():null
-  }
-  console.log('item: ', item)
+  };
+
+  /* const handleDateChange = (date) => {
+    setSelectedDate(date);
+    console.log(date); // Aquí puede hacer lo que necesite con el valor seleccionado
+  }; */
+  useEffect(() => {
+    let AAA = {};
+    console.log("selectedDate", selectedDate);
+    console.log(
+      "new Date(selectedDate).toISOString(): ",
+      new Date(selectedDate).toISOString()
+    );
+  }, [selectedDate]);
+
   return (
-    <Grid item  xs={12} sm={4}>
-      <Card sx={{  margin: '2em', padding: '1em' }}>
+    <Grid item xs={12} sm={4}>
+      <Card sx={{ /* maxWidth: 345, */ margin: "2em", padding: "1em" }}>
         <CardMedia
           component="img"
           alt="foto de abogado"
           height="auto"
           width="100%"
-          sx={{width:'100%', aspectRatio:'1/1'}}
+          sx={{ width: "100%", aspectRatio: "1/1" }}
           image={item?.image?.url}
         />
         <CardContent>
@@ -88,14 +117,15 @@ export default function ServicesCard({item}) {
           </Typography>
           <Typography>Especialidades: {specialitiesList} </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-            Excepturi est praesentium doloribus suscipit adipisci, cumque dolores 
-            minima.
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi
+            est praesentium doloribus suscipit adipisci, cumque dolores minima.
           </Typography>
-          <DateTimePickerValue handlerSelectDate={handlerSelectDate}  />
+          <DateTimePickerValue handlerSelectDate={handlerSelectDate} />
         </CardContent>
         <CardActions>
-          <Button onClick={handleContactLawyer} size="small">Contactar</Button>
+          <Button onClick={handleContactLawyer} size="small">
+            Contactar
+          </Button>
         </CardActions>
       </Card>
     </Grid>
