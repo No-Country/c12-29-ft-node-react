@@ -6,7 +6,6 @@ import Lawyer from '../models/Lawyer';
 import Subscription from '../models/Subscription';
 dotenv.config()
 
-const { ACCESS_TOKEN_MP } = process.env;
 
 export const createPayment = async (req: Request,res: Response) => {
 	try {
@@ -31,7 +30,7 @@ export const createPayment = async (req: Request,res: Response) => {
 				failure: "https://c12-29-ft-node-react.vercel.app/",
 			},
 			notification_url:
-				"https://8cf0-2800-810-557-2bcd-d408-33a1-710f-ca4c.ngrok.io/api/payments/webhook",
+				"https://c12-29-ft-node-react.onrender.com/api/payments/webhook",
 		})
 
 		res.status(200).json(result)
@@ -44,22 +43,21 @@ export const createPayment = async (req: Request,res: Response) => {
 }
 
 export const webhook = async (req: Request,res: Response) => {
+	
 	try {
 		const payment = req?.query;
 		const id = Number(payment["data.id"])
-		console.log("------------------WEBHOOK------------------");
 		if (payment.type === "payment") {
 			const { body } = await mercadopago.payment.findById(id);
-			console.log(body);
 
 			const { status,external_reference,additional_info } = body;
-
 			if (status === "approved") {
 
 				const subscription = await Subscription.findOne({name: additional_info.items[0].title})
-
+				
 				const newLawer = await Lawyer.findByIdAndUpdate(external_reference,{ subscription },{ new: true })
-	
+				
+				
 				return res.status(200).json(newLawer);
 			}
 		}
