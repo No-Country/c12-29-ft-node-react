@@ -33,9 +33,7 @@ const Login = () => {
     e.preventDefault()
     try {
       const { data } = await getUser(user)
-      console.log("data en Login",data)
       const userData = {user: data.user, token: data.token }
-      console.log("userData: ", userData)
       localStorage.setItem('usuario', JSON.stringify(userData))
       dispatch(saveUser({token: data.token, accountType:data.user.accountType, user:data.user}))
       navigate('/')

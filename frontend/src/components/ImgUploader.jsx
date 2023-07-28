@@ -1,8 +1,6 @@
-import { Avatar, Box, Button, Input, InputLabel, Typography, styled } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react'
+import { Box, Button, Input, InputLabel, Typography, styled } from '@mui/material';
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import axios from 'axios'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useUpdateLawyerImageMutation } from '../redux/userReducer';
 import Swal from 'sweetalert2';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -22,10 +20,7 @@ const ImgUploader = () => {
     setUrl(imgURL)
   },[image])
   
- /*  const handleSetImg = (e) => {
-    img.id = lawyerId
-    setImage( e.target.files[0])
-  } */
+
   const handleError = () => {
     Swal.fire({
       title: 'Error en la carga',
@@ -47,48 +42,6 @@ const ImgUploader = () => {
   const uploadImage = (e) => {
     e.preventDefault()
 
-      /*  */
-      // CON FETCH
-      // try {
-      //   const formData = new FormData()
-      //   formData.append('image', image)
-      //   /* formData.append("imageId", lawyerId) */
-      //   const sendImg = await fetch( `https://c12-29-ft-node-react.onrender.com/api/lawyers/image/${lawyerId}`,
-      //   /* const sendImg = await fetch(`http://localhost:3001/api/lawyers/image/${lawyerId}`, */
-      //   { 
-      //     method: 'PUT',
-      //     body: formData,
-      //   })
-      // } catch (error) {
-      //   console.log(error.message)
-      // }
-
-      /////////////////////////////////////////////////
-      // CON AXIOS
-      // const formData = new FormData()
-      // formData.append('image', image)
-      // try{
-      //   const response = await axios.put( `https://c12-29-ft-node-react.onrender.com/api/lawyers/image/${lawyerId}`, formData, {
-      //       headers: {
-      //         'Content-Type': 'multipart/form-data'
-      //       }  
-      //     }
-      //   )
-      //   console.log("response: ", response)
-
-      // }catch(error) {
-      //     handleError()
-      //     console.log("ERROR: ", error)
-      // }/* finally{
-
-      // } */
-      //try{
-
-      //}catch(error){
-        //console.log(error)
-      //}
-      /////////////////////////////////////
-      // CON RTK QUERY
       
       if (image) {
           const formData = new FormData()

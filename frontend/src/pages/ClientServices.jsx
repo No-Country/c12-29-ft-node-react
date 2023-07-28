@@ -17,7 +17,7 @@ const ClientServices = () => {
   const navigate = useNavigate()
   const dataInLocalStorage = localStorage.getItem('usuario')
   const userCredentials = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : null
-  if (userCredentials) console.log('userType: ', userCredentials)
+  if (userCredentials) console.log('userType: ', userCredentials)//
 
   const filterData = (query, data, type) => {
     if (type === 'search') {
@@ -41,21 +41,9 @@ const ClientServices = () => {
 
   useEffect(() => {
     if (!userCredentials) {
-      console.log('EN UseEffect')
       navigate('/')
     }
   }, [])
-  /// ///////////////////////////
-  /* useEffect( () => {
-  const handleFetch = () => {
-    fetch(`https://c12-29-ft-node-react.onrender.com/api/meets/64af5cf18c8463b543fd00cd?isClient=true`)
-      .then(res => res.json())
-      .then( data => console.log(data))
-      .catch(err => console.log( err.message))
-  }
-  handleFetch()
-  console.log("en useEffect")
-},[]) */
 
   return (
     <>

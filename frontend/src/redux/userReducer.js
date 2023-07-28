@@ -56,10 +56,7 @@ export const userApi = createApi({
     })
   })
 })
-/* fetch(`http://localhost:3001/api/lawyers/${lawyerId}`,{method:'GET'})
-      .then( res => res.json())
-      .then( data => console.log( data))
-      .catch(err => console.log( err.message)) */
+
 export const selectUser = (state) => state.userApi
 
 export const {
