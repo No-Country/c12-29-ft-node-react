@@ -19,7 +19,6 @@ export default function DateTimePickerValue ({ handlerSelectDate }) {
           label="Controlled picker"
           value={value}
           onChange={handleSelectValue}
-          disablePast
         />
       </DemoContainer>
   )

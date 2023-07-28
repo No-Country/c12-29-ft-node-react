@@ -143,7 +143,7 @@ const SignUp = () => {
                         error={error.email.length > 1}
                         helperText={error.email}
                         focused={false}
-                        sx={{ /* width:'80%', */input: { color: '#FFFFFF' }, border: '1px solid white', margin: '3% 0% 3% 0%', '& label': { color: 'white' }, '& .MuiInputLabel-shrink': { transform: 'translate(14px, -20px) scale(0.75)' } }}
+                        sx={{ input: { color: '#FFFFFF' }, border: '1px solid white', margin: '3% 0% 3% 0%', '& label': { color: 'white' }, '& .MuiInputLabel-shrink': { transform: 'translate(14px, -20px) scale(0.75)' } }}
                     />
                     <TextField
                         id="outlined-controlled"
@@ -155,7 +155,7 @@ const SignUp = () => {
                         error={error.password - length > 1}
                         helperText={error.password}
                         focused={false}
-                        sx={{ /* width:'80%', */input: { color: '#FFFFFF' }, border: '1px solid white', margin: '3% 0% 3% 0%', '& label': { color: 'white' }, '& .MuiInputLabel-shrink': { transform: 'translate(14px, -20px) scale(0.75)' } }}
+                        sx={{ input: { color: '#FFFFFF' }, border: '1px solid white', margin: '3% 0% 3% 0%', '& label': { color: 'white' }, '& .MuiInputLabel-shrink': { transform: 'translate(14px, -20px) scale(0.75)' } }}
                         />
                     <TextField
                             id="outlined-controlled"
